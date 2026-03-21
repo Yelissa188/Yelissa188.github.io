@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategy Pairing Comparison</title>
+  <style>
+    :root {
+      --bg: #f6efe3;
+      --panel: #fffaf2;
+      --line: #d9c7a9;
+      --text: #231c15;
+      --muted: #6e6255;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Serif SC", "Source Han Serif SC", serif;
+      color: var(--text);
+      background:
+        linear-gradient(90deg, rgba(196,165,112,.10), rgba(255,255,255,0) 14%, rgba(196,165,112,.10) 28%, rgba(255,255,255,0) 42%, rgba(196,165,112,.10) 56%, rgba(255,255,255,0) 70%, rgba(196,165,112,.10) 84%, rgba(255,255,255,0)),
+        var(--bg);
+    }
+    main {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 36px 28px 80px;
+    }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px 30px;
+      box-shadow: 0 20px 40px rgba(90, 63, 18, .08);
+    }
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: 52px;
+      line-height: 1.05;
+    }
+    .hero p, .subtle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+    .callout {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: #fff5e7;
+      border: 1px solid #e4c89a;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+    .section-title {
+      margin: 28px 0 14px;
+      font-size: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eadbc5;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: rgba(255,255,255,.55);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .detail {
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 20px;
+    }
+    .detail h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 38px; }
+      table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>稳定 vs 收益 配对对照</h1>
+      <p>这页专门回答一个问题：两个账户分别跑 `3m` / `5m` 时，是 `稳定 + 稳定` 更好，还是 `稳定 + 收益` 更好，还是干脆 `收益 + 收益` 更划算。</p>
+      <div class="callout">
+        <strong>稳定优先最佳：</strong> 稳定+稳定<br/>
+        正月覆盖 7/7，最差月份 +129.24 USDT，总 gross +3170.64 USDT。<br/>
+        <strong>总收益最佳：</strong> 收益+收益，总 gross +3867.38 USDT。
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">标签对照</h2>
+      <p class="subtle">这里把页面里的短标签和真实组合配置写死，避免后面回看时记不住 `stable / gross` 各自代表哪套 RR 搭配。</p>
+      <table class='mapping'><thead><tr><th>短标签</th><th>实际配置</th></tr></thead><tbody><tr><td>3m stable</td><td>ETH core_plus_momentum 3.0R + DOGE core_plus_momentum 2.0R</td></tr><tr><td>3m gross</td><td>ETH core_plus_momentum 2.5R + DOGE core_plus_momentum 3.0R</td></tr><tr><td>5m stable</td><td>SOL core_plus_momentum 1.0R + ETH core_plus_momentum 2.5R</td></tr><tr><td>5m gross</td><td>SOL core_plus_momentum 2.5R + ETH core_plus_momentum 3.0R</td></tr><tr><td>稳定+稳定</td><td>3m stable + 5m stable</td></tr><tr><td>稳定3m+收益5m</td><td>3m stable + 5m gross</td></tr><tr><td>收益3m+稳定5m</td><td>3m gross + 5m stable</td></tr><tr><td>收益+收益</td><td>3m gross + 5m gross</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">方案总表</h2>
+      <p class="subtle">排序规则和前面的稳定性榜一致：先看正月覆盖，再看最差月份，再看月度波动，最后才看总收益。</p>
+      <table class='summary'><thead><tr><th>#</th><th>Pairing</th><th>Pos</th><th>Worst</th><th>Std</th><th>Total</th><th>Avg Exp</th></tr></thead><tbody><tr><td>1</td><td>稳定+稳定</td><td>7/7</td><td>+129.24</td><td>259.85</td><td>+3170.64</td><td>0.1330</td></tr><tr><td>2</td><td>收益+收益</td><td>7/7</td><td>+78.97</td><td>451.31</td><td>+3867.38</td><td>0.1546</td></tr><tr><td>3</td><td>收益3m+稳定5m</td><td>7/7</td><td>+42.39</td><td>326.36</td><td>+3350.34</td><td>0.1392</td></tr><tr><td>4</td><td>稳定3m+收益5m</td><td>6/7</td><td>-3.65</td><td>414.47</td><td>+3687.68</td><td>0.1498</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">月度拆解</h2>
+      <p class="subtle">看这个区域就知道某个月到底是谁在扛，稳定线是否真的帮收益线吸收了回撤。</p>
+      <div class="grid">
+        <section class='detail'><h3>稳定+稳定</h3><p class='subtle'>A: portfolio_monthly_combo_3m_stable_20260321.csv<br/>B: portfolio_monthly_combo_5m_stable_20260321.csv</p><table class='monthly'><thead><tr><th>Month</th><th>A</th><th>B</th><th>Combined</th><th>A Abs Share</th><th>B Abs Share</th><th>W/L</th><th>WR</th><th>Exp</th></tr></thead><tbody><tr><td>2025-09</td><td>+70.91</td><td>+58.33</td><td style='background:#dff4df'><strong>+129.24</strong></td><td>54.9%</td><td>45.1%</td><td>28W/54L</td><td>34.1%</td><td>-0.1341</td></tr><tr><td>2025-10</td><td>+499.93</td><td>+446.37</td><td style='background:#dff4df'><strong>+946.30</strong></td><td>52.8%</td><td>47.2%</td><td>79W/108L</td><td>42.2%</td><td>0.1925</td></tr><tr><td>2025-11</td><td>+172.22</td><td>+256.95</td><td style='background:#dff4df'><strong>+429.17</strong></td><td>40.1%</td><td>59.9%</td><td>77W/115L</td><td>40.1%</td><td>0.1432</td></tr><tr><td>2025-12</td><td>+38.45</td><td>+163.38</td><td style='background:#dff4df'><strong>+201.83</strong></td><td>19.0%</td><td>81.0%</td><td>61W/75L</td><td>44.9%</td><td>0.2022</td></tr><tr><td>2026-01</td><td>+349.43</td><td>+284.50</td><td style='background:#dff4df'><strong>+633.92</strong></td><td>55.1%</td><td>44.9%</td><td>69W/97L</td><td>41.6%</td><td>0.1777</td></tr><tr><td>2026-02</td><td>+277.12</td><td>+250.29</td><td style='background:#dff4df'><strong>+527.40</strong></td><td>52.5%</td><td>47.5%</td><td>45W/75L</td><td>37.5%</td><td>0.0542</td></tr><tr><td>2026-03</td><td>+220.52</td><td>+82.26</td><td style='background:#dff4df'><strong>+302.77</strong></td><td>72.8%</td><td>27.2%</td><td>54W/68L</td><td>44.3%</td><td>0.2951</td></tr></tbody></table></section><section class='detail'><h3>收益+收益</h3><p class='subtle'>A: portfolio_monthly_combo_3m_gross_20260321.csv<br/>B: portfolio_monthly_combo_5m_gross_20260321.csv</p><table class='monthly'><thead><tr><th>Month</th><th>A</th><th>B</th><th>Combined</th><th>A Abs Share</th><th>B Abs Share</th><th>W/L</th><th>WR</th><th>Exp</th></tr></thead><tbody><tr><td>2025-09</td><td>+175.58</td><td>-74.55</td><td style='background:#dff4df'><strong>+101.03</strong></td><td>70.2%</td><td>29.8%</td><td>15W/57L</td><td>20.8%</td><td>-0.2153</td></tr><tr><td>2025-10</td><td>+633.17</td><td>+508.86</td><td style='background:#dff4df'><strong>+1142.03</strong></td><td>55.4%</td><td>44.6%</td><td>61W/115L</td><td>34.7%</td><td>0.2841</td></tr><tr><td>2025-11</td><td>+173.65</td><td>+992.35</td><td style='background:#dff4df'><strong>+1166.00</strong></td><td>14.9%</td><td>85.1%</td><td>61W/119L</td><td>33.9%</td><td>0.2583</td></tr><tr><td>2025-12</td><td>-121.00</td><td>+273.76</td><td style='background:#dff4df'><strong>+152.77</strong></td><td>30.7%</td><td>69.3%</td><td>39W/87L</td><td>31.0%</td><td>0.1230</td></tr><tr><td>2026-01</td><td>+455.10</td><td>+389.08</td><td style='background:#dff4df'><strong>+844.18</strong></td><td>53.9%</td><td>46.1%</td><td>44W/86L</td><td>33.8%</td><td>0.2654</td></tr><tr><td>2026-02</td><td>+327.75</td><td>+54.65</td><td style='background:#dff4df'><strong>+382.40</strong></td><td>85.7%</td><td>14.3%</td><td>34W/77L</td><td>30.6%</td><td>0.1532</td></tr><tr><td>2026-03</td><td>+164.01</td><td>-85.04</td><td style='background:#dff4df'><strong>+78.97</strong></td><td>65.9%</td><td>34.1%</td><td>27W/55L</td><td>32.9%</td><td>0.2134</td></tr></tbody></table></section><section class='detail'><h3>收益3m+稳定5m</h3><p class='subtle'>A: portfolio_monthly_combo_3m_gross_20260321.csv<br/>B: portfolio_monthly_combo_5m_stable_20260321.csv</p><table class='monthly'><thead><tr><th>Month</th><th>A</th><th>B</th><th>Combined</th><th>A Abs Share</th><th>B Abs Share</th><th>W/L</th><th>WR</th><th>Exp</th></tr></thead><tbody><tr><td>2025-09</td><td>+175.58</td><td>+58.33</td><td style='background:#dff4df'><strong>+233.91</strong></td><td>75.1%</td><td>24.9%</td><td>26W/54L</td><td>32.5%</td><td>-0.1250</td></tr><tr><td>2025-10</td><td>+633.17</td><td>+446.37</td><td style='background:#dff4df'><strong>+1079.53</strong></td><td>58.7%</td><td>41.3%</td><td>78W/111L</td><td>41.3%</td><td>0.2249</td></tr><tr><td>2025-11</td><td>+173.65</td><td>+256.95</td><td style='background:#dff4df'><strong>+430.60</strong></td><td>40.3%</td><td>59.7%</td><td>73W/124L</td><td>37.1%</td><td>0.1371</td></tr><tr><td>2025-12</td><td>-121.00</td><td>+163.38</td><td style='background:#dff4df'><strong>+42.39</strong></td><td>42.5%</td><td>57.5%</td><td>55W/89L</td><td>38.2%</td><td>0.0937</td></tr><tr><td>2026-01</td><td>+455.10</td><td>+284.50</td><td style='background:#dff4df'><strong>+739.60</strong></td><td>61.5%</td><td>38.5%</td><td>63W/91L</td><td>40.9%</td><td>0.2240</td></tr><tr><td>2026-02</td><td>+327.75</td><td>+250.29</td><td style='background:#dff4df'><strong>+578.04</strong></td><td>56.7%</td><td>43.3%</td><td>50W/81L</td><td>38.2%</td><td>0.1450</td></tr><tr><td>2026-03</td><td>+164.01</td><td>+82.26</td><td style='background:#dff4df'><strong>+246.27</strong></td><td>66.6%</td><td>33.4%</td><td>43W/57L</td><td>43.0%</td><td>0.2750</td></tr></tbody></table></section><section class='detail'><h3>稳定3m+收益5m</h3><p class='subtle'>A: portfolio_monthly_combo_3m_stable_20260321.csv<br/>B: portfolio_monthly_combo_5m_gross_20260321.csv</p><table class='monthly'><thead><tr><th>Month</th><th>A</th><th>B</th><th>Combined</th><th>A Abs Share</th><th>B Abs Share</th><th>W/L</th><th>WR</th><th>Exp</th></tr></thead><tbody><tr><td>2025-09</td><td>+70.91</td><td>-74.55</td><td style='background:#fde0d9'><strong>-3.65</strong></td><td>48.7%</td><td>51.3%</td><td>17W/57L</td><td>23.0%</td><td>-0.2230</td></tr><tr><td>2025-10</td><td>+499.93</td><td>+508.86</td><td style='background:#dff4df'><strong>+1008.80</strong></td><td>49.6%</td><td>50.4%</td><td>62W/112L</td><td>35.6%</td><td>0.2500</td></tr><tr><td>2025-11</td><td>+172.22</td><td>+992.35</td><td style='background:#dff4df'><strong>+1164.57</strong></td><td>14.8%</td><td>85.2%</td><td>65W/110L</td><td>37.1%</td><td>0.2686</td></tr><tr><td>2025-12</td><td>+38.45</td><td>+273.76</td><td style='background:#dff4df'><strong>+312.21</strong></td><td>12.3%</td><td>87.7%</td><td>45W/73L</td><td>38.1%</td><td>0.2500</td></tr><tr><td>2026-01</td><td>+349.43</td><td>+389.08</td><td style='background:#dff4df'><strong>+738.50</strong></td><td>47.3%</td><td>52.7%</td><td>50W/92L</td><td>35.2%</td><td>0.2077</td></tr><tr><td>2026-02</td><td>+277.12</td><td>+54.65</td><td style='background:#dff4df'><strong>+331.77</strong></td><td>83.5%</td><td>16.5%</td><td>29W/71L</td><td>29.0%</td><td>0.0450</td></tr><tr><td>2026-03</td><td>+220.52</td><td>-85.04</td><td style='background:#dff4df'><strong>+135.48</strong></td><td>72.2%</td><td>27.8%</td><td>38W/66L</td><td>36.5%</td><td>0.2500</td></tr></tbody></table></section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
