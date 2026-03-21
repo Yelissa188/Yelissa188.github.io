@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5m Monthly RR Matrix</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+      background: linear-gradient(180deg, #f7f4ee 0%, #efe9df 100%);
+      color: #1e1b16;
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+    .hero, .pair-section, .month-card {
+      background: rgba(255, 251, 245, 0.92);
+      border: 1px solid #d8ccbc;
+      border-radius: 20px;
+      box-shadow: 0 18px 30px rgba(30, 27, 22, 0.05);
+    }
+    .hero {
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      letter-spacing: -0.03em;
+    }
+    .hero p {
+      margin: 0;
+      color: #6e665d;
+      line-height: 1.6;
+    }
+    .pair-section {
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .pair-section h2 {
+      margin: 0 0 14px;
+      font-size: 26px;
+    }
+    .month-card {
+      padding: 14px;
+      margin-top: 14px;
+    }
+    .month-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #dfd3c3;
+      padding: 10px 8px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th {
+      background: #f3ece2;
+    }
+    .read {
+      margin: 10px 0 0;
+      color: #5f574d;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>5m 月度 RR 矩阵</h1>
+      <p>把三个月总结果拆成月度窗口后，你可以直接看到每个币在每个月里，骨架结构和动量过滤结构分别适合什么 RR。绿色代表 expectancy 为正，红色代表为负。</p>
+    </section>
+    <section class='pair-section'><h2>ETH</h2>
+                <section class="month-card">
+                  <h3>2025-09</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.067<br>PnL -0</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.038<br>PnL 20</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.167<br>PnL -10</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.263<br>PnL -15</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.158<br>PnL 8</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.238<br>PnL -35</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.643<br>PnL -99</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.700<br>PnL -95</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.632<br>PnL -70</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.579<br>PnL -57</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 1.5R</strong> (19.63 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 1.5R</strong> (-0.0385 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-10</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.053<br>PnL 244</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.222<br>PnL -61</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.098<br>PnL 115</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.312<br>PnL 232</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.600<br>PnL 304</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.102<br>PnL 176</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.148<br>PnL 5</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.043<br>PnL -2</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.591<br>PnL 156</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.091<br>PnL 35</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 3.0R</strong> (304.29 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 3.0R</strong> (0.6000 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-11</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.051<br>PnL 41</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.034<br>PnL -136</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.057<br>PnL -27</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.289<br>PnL 247</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.697<br>PnL 487</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.158<br>PnL 224</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.635<br>PnL 424</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.400<br>PnL 170</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.925<br>PnL 395</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.882<br>PnL 562</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 3.0R</strong> (562.08 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.9250 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-12</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.143<br>PnL 19</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.013<br>PnL 104</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.091<br>PnL 50</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.192<br>PnL 35</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.500<br>PnL -14</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.091<br>PnL 0</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.135<br>PnL 25</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.038<br>PnL 139</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.500<br>PnL 46</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.200<br>PnL -38</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 2.0R</strong> (139.18 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.5000 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-01</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.046<br>PnL 19</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.105<br>PnL -3</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.143<br>PnL 72</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.135<br>PnL 172</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.125<br>PnL 103</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.163<br>PnL -83</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.167<br>PnL -84</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.029<br>PnL 1</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.242<br>PnL 157</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.429<br>PnL 270</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 3.0R</strong> (269.98 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 3.0R</strong> (0.4286 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-02</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.244<br>PnL -239</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.148<br>PnL -159</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.276<br>PnL -347</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.163<br>PnL -270</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.043<br>PnL -165</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.105<br>PnL 4</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.118<br>PnL 71</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.250<br>PnL -67</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.167<br>PnL 41</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.538<br>PnL 290</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 3.0R</strong> (290.08 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 3.0R</strong> (0.5385 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-03</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.156<br>PnL -97</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.091<br>PnL -178</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.161<br>PnL -71</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.312<br>PnL 70</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.273<br>PnL -148</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.077<br>PnL -43</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.062<br>PnL 28</td><td style='background:#f1ede4'><strong>2.0R</strong><br>Exp 0.000<br>PnL 27</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.273<br>PnL 158</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.385<br>PnL -43</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 2.5R</strong> (157.73 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 2.5R</strong> (0.3125 R/trade)</p>
+                </section>
+                </section><section class='pair-section'><h2>DOGE</h2>
+                <section class="month-card">
+                  <h3>2025-09</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.179<br>PnL -114</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.214<br>PnL -83</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.182<br>PnL -47</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.097<br>PnL -10</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.067<br>PnL 54</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.391<br>PnL -190</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.444<br>PnL -148</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.667<br>PnL -182</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.611<br>PnL -153</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.529<br>PnL -106</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 3.0R</strong> (54.11 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 3.0R</strong> (0.0667 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-10</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.185<br>PnL -129</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.125<br>PnL -44</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.062<br>PnL 45</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.125<br>PnL 62</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.200<br>PnL -175</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.304<br>PnL -9</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.447<br>PnL 35</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.235<br>PnL 55</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.432<br>PnL 193</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.400<br>PnL -60</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 2.5R</strong> (192.92 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 1.5R</strong> (0.4474 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-11</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.111<br>PnL -77</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.400<br>PnL -107</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.250<br>PnL -15</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.222<br>PnL 2</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.067<br>PnL 94</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.222<br>PnL -21</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.464<br>PnL -2</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.250<br>PnL 33</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.167<br>PnL 78</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.200<br>PnL 99</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 3.0R</strong> (99.17 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.1667 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-12</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.152<br>PnL -144</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.038<br>PnL 52</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.116<br>PnL 41</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.041<br>PnL -193</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.125<br>PnL -233</td></tr><tr><th>core_plus_momentum</th><td style='background:#f1ede4'><strong>1.0R</strong><br>Exp 0.000<br>PnL -32</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.064<br>PnL 5</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.027<br>PnL -182</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.283<br>PnL -35</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.333<br>PnL -290</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 1.5R</strong> (51.91 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.2833 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-01</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.034<br>PnL -30</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.212<br>PnL -93</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.217<br>PnL -123</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.125<br>PnL 40</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 1.000<br>PnL 393</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.057<br>PnL 38</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.189<br>PnL -68</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.040<br>PnL 78</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.260<br>PnL 402</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 1.286<br>PnL 469</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 3.0R</strong> (469.29 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 3.0R</strong> (1.2857 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-02</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.182<br>PnL 420</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.333<br>PnL 251</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.143<br>PnL -41</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.167<br>PnL -97</td><td style='background:#f1ede4'><strong>3.0R</strong><br>Exp 0.000<br>PnL -306</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.024<br>PnL 152</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.018<br>PnL -245</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.038<br>PnL -349</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.045<br>PnL -421</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.167<br>PnL -270</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 1.0R</strong> (420.42 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 1.5R</strong> (0.3333 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-03</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.087<br>PnL 182</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.357<br>PnL 235</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.345<br>PnL -16</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.239<br>PnL -143</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.111<br>PnL -58</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.310<br>PnL 222</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.538<br>PnL 257</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.667<br>PnL 143</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.750<br>PnL 29</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.455<br>PnL -46</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 1.5R</strong> (257.01 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.7500 R/trade)</p>
+                </section>
+                </section><section class='pair-section'><h2>SOL</h2>
+                <section class="month-card">
+                  <h3>2025-09</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.167<br>PnL 82</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.121<br>PnL 105</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.429<br>PnL 201</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.556<br>PnL 169</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.750<br>PnL 211</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.333<br>PnL 128</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.625<br>PnL 141</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.588<br>PnL 113</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.094<br>PnL -17</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.250<br>PnL 14</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 3.0R</strong> (211.00 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 3.0R</strong> (0.7500 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-10</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.051<br>PnL 141</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.094<br>PnL -276</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.080<br>PnL -369</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.255<br>PnL 293</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.161<br>PnL 35</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.119<br>PnL 290</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.188<br>PnL -199</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.250<br>PnL -292</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.700<br>PnL 474</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.467<br>PnL 274</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 2.5R</strong> (474.35 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.7000 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-11</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.101<br>PnL 45</td><td style='background:#fde0d9'><strong>1.5R</strong><br>Exp -0.049<br>PnL -39</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.066<br>PnL -13</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.025<br>PnL 110</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.132<br>PnL 59</td></tr><tr><th>core_plus_momentum</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.069<br>PnL -138</td><td style='background:#f1ede4'><strong>1.5R</strong><br>Exp 0.000<br>PnL -7</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.267<br>PnL 257</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.432<br>PnL 430</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.368<br>PnL 197</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 2.5R</strong> (430.27 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 2.5R</strong> (0.4318 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2025-12</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.220<br>PnL 267</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.136<br>PnL 90</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.125<br>PnL -66</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.167<br>PnL -49</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.027<br>PnL -84</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.182<br>PnL 118</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.379<br>PnL 225</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.421<br>PnL 104</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.674<br>PnL 312</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 1.286<br>PnL 114</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 2.5R</strong> (311.73 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 3.0R</strong> (1.2857 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-01</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.040<br>PnL -68</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.009<br>PnL 12</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.182<br>PnL -178</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.065<br>PnL 53</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.020<br>PnL 47</td></tr><tr><th>core_plus_momentum</th><td style='background:#f1ede4'><strong>1.0R</strong><br>Exp 0.000<br>PnL 128</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.216<br>PnL 301</td><td style='background:#fde0d9'><strong>2.0R</strong><br>Exp -0.226<br>PnL 17</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.155<br>PnL 119</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.529<br>PnL 28</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 1.5R</strong> (301.29 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 1.5R</strong> (0.2162 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-02</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#fde0d9'><strong>1.0R</strong><br>Exp -0.017<br>PnL 98</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.202<br>PnL 227</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.500<br>PnL 441</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.608<br>PnL 282</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.333<br>PnL 115</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.105<br>PnL 209</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.029<br>PnL -15</td><td style='background:#f1ede4'><strong>2.0R</strong><br>Exp 0.000<br>PnL -71</td><td style='background:#fde0d9'><strong>2.5R</strong><br>Exp -0.327<br>PnL -235</td><td style='background:#fde0d9'><strong>3.0R</strong><br>Exp -0.273<br>PnL -217</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_structure @ 2.0R</strong> (441.10 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_structure @ 2.5R</strong> (0.6081 R/trade)</p>
+                </section>
+                
+                <section class="month-card">
+                  <h3>2026-03</h3>
+                  <table>
+                    <thead>
+                      <tr><th>Variant</th><th>1.0R</th><th>1.5R</th><th>2.0R</th><th>2.5R</th><th>3.0R</th></tr>
+                    </thead>
+                    <tbody><tr><th>core_structure</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.316<br>PnL 89</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.250<br>PnL 6</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.275<br>PnL 90</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.105<br>PnL -83</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.143<br>PnL -64</td></tr><tr><th>core_plus_momentum</th><td style='background:#dff4df'><strong>1.0R</strong><br>Exp 0.125<br>PnL -75</td><td style='background:#dff4df'><strong>1.5R</strong><br>Exp 0.346<br>PnL 109</td><td style='background:#dff4df'><strong>2.0R</strong><br>Exp 0.200<br>PnL -29</td><td style='background:#dff4df'><strong>2.5R</strong><br>Exp 0.217<br>PnL -42</td><td style='background:#dff4df'><strong>3.0R</strong><br>Exp 0.263<br>PnL -94</td></tr></tbody>
+                  </table>
+                  <p class="read">Best PnL: <strong>core_plus_momentum @ 1.5R</strong> (109.26 USDT)</p>
+                  <p class="read">Best Expectancy: <strong>core_plus_momentum @ 1.5R</strong> (0.3462 R/trade)</p>
+                </section>
+                </section>
+  </div>
+</body>
+</html>
