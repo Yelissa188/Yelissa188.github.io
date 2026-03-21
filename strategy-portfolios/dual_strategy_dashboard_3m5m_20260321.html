@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dual Strategy Portfolio Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6efe3;
+      --panel: #fffaf2;
+      --line: #d9c7a9;
+      --text: #231c15;
+      --muted: #6e6255;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Serif SC", "Source Han Serif SC", serif;
+      color: var(--text);
+      background:
+        linear-gradient(90deg, rgba(196,165,112,.10), rgba(255,255,255,0) 14%, rgba(196,165,112,.10) 28%, rgba(255,255,255,0) 42%, rgba(196,165,112,.10) 56%, rgba(255,255,255,0) 70%, rgba(196,165,112,.10) 84%, rgba(255,255,255,0)),
+        var(--bg);
+    }
+    main {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 36px 28px 80px;
+    }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px 30px;
+      box-shadow: 0 20px 40px rgba(90, 63, 18, .08);
+    }
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: 52px;
+      line-height: 1.05;
+    }
+    .hero p, .subtle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+    .callout {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: #fff5e7;
+      border: 1px solid #e4c89a;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+    .metric-panel {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .metric-panel h3 {
+      grid-column: 1 / -1;
+      margin: 0 0 4px;
+      font-size: 24px;
+    }
+    .metric-card {
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px;
+    }
+    .metric-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .metric-card strong {
+      font-size: 24px;
+    }
+    .section-title {
+      margin: 28px 0 14px;
+      font-size: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eadbc5;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      background: rgba(255,255,255,.55);
+      font-weight: 600;
+    }
+    @media (max-width: 1100px) {
+      .metric-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero h1 { font-size: 38px; }
+      table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>双策略合并仪表板</h1>
+      <p>这页把两个独立账户运行的策略线按月合并。因为账户独立，这里不考虑资金槽位冲突，只看月度收益形状和互补效果。</p>
+      <div class="callout">
+        <strong>策略 A：</strong> 3m stable: ETH cpm 3.0R + DOGE cpm 2.0R<br/>
+        <strong>策略 B：</strong> 5m stable: SOL cpm 1.0R + ETH cpm 2.5R<br/>
+        <strong>合并后：</strong> 7/7 正月，总 gross +3170.64 USDT，最差月份 +129.24 USDT。
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">策略线对比</h2>
+      <section class='metric-panel'><h3>Combined</h3><article class='metric-card'><span>Positive Months</span><strong>7/7</strong></article><article class='metric-card'><span>Total Gross</span><strong>+3170.64 USDT</strong></article><article class='metric-card'><span>Worst Month</span><strong>+129.24 USDT</strong></article><article class='metric-card'><span>Monthly Std</span><strong>259.85</strong></article><article class='metric-card'><span>Avg Expectancy</span><strong>0.1330 R</strong></article></section>
+      <section class='metric-panel'><h3>3m stable: ETH cpm 3.0R + DOGE cpm 2.0R</h3><article class='metric-card'><span>Positive Months</span><strong>7/7</strong></article><article class='metric-card'><span>Total Gross</span><strong>+1628.57 USDT</strong></article><article class='metric-card'><span>Worst Month</span><strong>+38.45 USDT</strong></article><article class='metric-card'><span>Monthly Std</span><strong>148.68</strong></article><article class='metric-card'><span>Avg Expectancy</span><strong>0.1448 R</strong></article></section>
+      <section class='metric-panel'><h3>5m stable: SOL cpm 1.0R + ETH cpm 2.5R</h3><article class='metric-card'><span>Positive Months</span><strong>7/7</strong></article><article class='metric-card'><span>Total Gross</span><strong>+1542.07 USDT</strong></article><article class='metric-card'><span>Worst Month</span><strong>+58.33 USDT</strong></article><article class='metric-card'><span>Monthly Std</span><strong>123.06</strong></article><article class='metric-card'><span>Avg Expectancy</span><strong>0.1216 R</strong></article></section>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">合并 vs 单独运行</h2>
+      <p class="subtle">如果合并线的最差月份更浅、正月覆盖更高，说明两条策略线在月度层面确实形成了风险缓冲。</p>
+      <table class='compare'><thead><tr><th>Metric</th><th>Combined</th><th>3m stable: ETH cpm 3.0R + DOGE cpm 2.0R</th><th>5m stable: SOL cpm 1.0R + ETH cpm 2.5R</th></tr></thead><tbody><tr><td>Positive Months</td><td>7/7</td><td>7/7</td><td>7/7</td></tr><tr><td>Total Gross</td><td>+3170.64</td><td>+1628.57</td><td>+1542.07</td></tr><tr><td>Worst Month</td><td>+129.24</td><td>+38.45</td><td>+58.33</td></tr><tr><td>Monthly Std</td><td>259.85</td><td>148.68</td><td>123.06</td></tr><tr><td>Avg Expectancy</td><td>0.1330</td><td>0.1448</td><td>0.1216</td></tr></tbody></table>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-title">月度成分拆解</h2>
+      <p class="subtle">Abs share 用两条策略线每个月的绝对 PnL 占比看成分，能更清楚地看到是谁在扛这个月。</p>
+      <table class='detail'><thead><tr><th>Month</th><th>3m stable: ETH cpm 3.0R + DOGE cpm 2.0R</th><th>5m stable: SOL cpm 1.0R + ETH cpm 2.5R</th><th>Combined</th><th>A Abs Share</th><th>B Abs Share</th><th>W/L</th><th>WR</th><th>PF</th><th>Exp</th></tr></thead><tbody><tr><td>2025-09</td><td>+70.91</td><td>+58.33</td><td style='background:#dff4df'><strong>+129.24</strong></td><td>54.9%</td><td>45.1%</td><td>28W/54L</td><td>34.1%</td><td>n/a</td><td>-0.1341</td></tr><tr><td>2025-10</td><td>+499.93</td><td>+446.37</td><td style='background:#dff4df'><strong>+946.30</strong></td><td>52.8%</td><td>47.2%</td><td>79W/108L</td><td>42.2%</td><td>n/a</td><td>0.1925</td></tr><tr><td>2025-11</td><td>+172.22</td><td>+256.95</td><td style='background:#dff4df'><strong>+429.17</strong></td><td>40.1%</td><td>59.9%</td><td>77W/115L</td><td>40.1%</td><td>n/a</td><td>0.1432</td></tr><tr><td>2025-12</td><td>+38.45</td><td>+163.38</td><td style='background:#dff4df'><strong>+201.83</strong></td><td>19.0%</td><td>81.0%</td><td>61W/75L</td><td>44.9%</td><td>n/a</td><td>0.2022</td></tr><tr><td>2026-01</td><td>+349.43</td><td>+284.50</td><td style='background:#dff4df'><strong>+633.92</strong></td><td>55.1%</td><td>44.9%</td><td>69W/97L</td><td>41.6%</td><td>n/a</td><td>0.1777</td></tr><tr><td>2026-02</td><td>+277.12</td><td>+250.29</td><td style='background:#dff4df'><strong>+527.40</strong></td><td>52.5%</td><td>47.5%</td><td>45W/75L</td><td>37.5%</td><td>n/a</td><td>0.0542</td></tr><tr><td>2026-03</td><td>+220.52</td><td>+82.26</td><td style='background:#dff4df'><strong>+302.77</strong></td><td>72.8%</td><td>27.2%</td><td>54W/68L</td><td>44.3%</td><td>n/a</td><td>0.2951</td></tr></tbody></table>
+    </section>
+  </main>
+</body>
+</html>
