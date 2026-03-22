@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executable Triple Dashboard</title>
+  <style>
+    :root {
+      --bg: #f3ecde;
+      --panel: rgba(255, 250, 241, 0.96);
+      --line: #d8c7ab;
+      --text: #221b15;
+      --muted: #6a5d50;
+      --good: #dff4df;
+      --bad: #fde0d9;
+      --flat: #f4efe5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(213, 169, 90, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(77, 128, 104, 0.15), transparent 24%),
+        linear-gradient(180deg, #f9f5ee 0%, var(--bg) 100%);
+    }
+    main {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 32px 22px 60px;
+    }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 18px 36px rgba(52, 38, 20, 0.07);
+    }
+    .hero {
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 42px;
+      line-height: 1.06;
+    }
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .card {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fffdf8;
+    }
+    .card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .card strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .card small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+    .panel {
+      padding: 22px;
+      margin-top: 18px;
+    }
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+    }
+    .panel p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: #fffdf8;
+    }
+    .note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    .note p {
+      margin: 0;
+      font-size: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid #eadbc6;
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: rgba(255,255,255,0.5);
+    }
+    @media (max-width: 1050px) {
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .notes { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>Executable 三币组合仪表板</h1>
+      <p>基于 `ETH / DOGE / ADA` 的 executable 月矩阵，穷举三条腿各自的 `variant + R`，按“正月覆盖率优先、总盈利次之”对三币配置排序，并把月度拆解直接写出来。</p>
+      <div class="cards">
+        <article class='card'><span>Best Triple</span><strong>ETH + DOGE + ADA</strong><small>core_plus_momentum @ 3.0R + core_plus_momentum @ 3.0R + core_plus_momentum @ 3.0R</small></article>
+        <article class='card'><span>Positive Months</span><strong>7/7</strong><small>排序第一优先级</small></article>
+        <article class='card'><span>Total Gross</span><strong>+2358.11 USDT</strong><small>排序第二优先级</small></article>
+        <article class='card'><span>Total Resolved</span><strong>661</strong><small>三条腿合并后的总成交笔数</small></article>
+      </div>
+      <div class="cards">
+        <article class='card'><span>Max Gross Triple</span><strong>ETH + DOGE + ADA</strong><small>core_plus_momentum @ 3.0R + core_plus_momentum @ 3.0R + core_structure @ 2.5R</small></article>
+        <article class='card'><span>Max Gross</span><strong>+2913.35 USDT</strong><small>不考虑排序优先级，只看绝对盈利</small></article>
+        <article class='card'><span>Max Gross Coverage</span><strong>5/7</strong><small>和覆盖率第一做并列对照</small></article>
+        <article class='card'><span>7/7 Triple Count</span><strong>15</strong><small>三币中每个月都为正的配置数量</small></article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Direct Answers</h2>
+      <div class="notes">
+        <article class="note">
+          <strong>最佳三币是谁</strong>
+          <p>当前最佳三币配置是 <strong>core_plus_momentum @ 3.0R + core_plus_momentum @ 3.0R + core_plus_momentum @ 3.0R</strong>，做到 <strong>7/7</strong> 正月，总盈利 <strong>+2358.11 USDT</strong>。</p>
+        </article>
+        <article class="note">
+          <strong>有没有 7/7 月月正</strong>
+          <p>有，而且不止一套。当前三币一共有 <strong>15</strong> 个配置做到 <strong>7/7</strong>。这说明三币互补性明显比单币和部分二币更强。</p>
+        </article>
+        <article class="note">
+          <strong>ETH 在三币里做什么</strong>
+          <p>ETH 在最佳三币里不是拖后腿。它用 <strong>core_plus_momentum @ 3.0R</strong> 出现在最佳三币中，主要作用是填补 ADA 负月与 DOGE 负月之间的空档，让组合维持月度为正。</p>
+        </article>
+        <article class="note">
+          <strong>盈利第一和稳定第一是否一致</strong>
+          <p>不一致。总盈利第一更激进，但覆盖率只有 <strong>5/7</strong>；稳定第一则把最差月压在 <strong>+106.78 USDT</strong> 以上。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Coin Contribution Profile</h2>
+      <table>
+        <thead>
+          <tr><th>Coin</th><th>Config</th><th>Total Gross</th><th>Positive Months</th><th>Worst Month</th><th>Resolved</th><th>Offset Months</th></tr>
+        </thead>
+        <tbody><tr><td>DOGE</td><td>core_plus_momentum @ 3.0R</td><td>+943.74</td><td>6/7</td><td>-153.23</td><td>281</td><td>4</td></tr><tr><td>ADA</td><td>core_plus_momentum @ 3.0R</td><td>+800.06</td><td>4/7</td><td>-82.80</td><td>183</td><td>2</td></tr><tr><td>ETH</td><td>core_plus_momentum @ 3.0R</td><td>+614.31</td><td>6/7</td><td>-67.87</td><td>197</td><td>4</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>7/7 Triple Universe</h2>
+      <p>这部分只列出每个月都为正的三币配置，直接回答“三币有没有月月正”这个问题。</p>
+      <table>
+        <thead>
+          <tr><th>ETH Config</th><th>DOGE Config</th><th>ADA Config</th><th>Total Gross</th><th>Worst Month</th><th>Resolved</th></tr>
+        </thead>
+        <tbody><tr><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>+2358.11</td><td>+106.78</td><td>661</td></tr><tr><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>+2085.84</td><td>+55.90</td><td>743</td></tr><tr><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>+2012.71</td><td>+106.02</td><td>699</td></tr><tr><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1968.60</td><td>+3.13</td><td>712</td></tr><tr><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>+1903.78</td><td>+91.17</td><td>745</td></tr><tr><td>core_structure @ 2.5R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>+1794.34</td><td>+81.85</td><td>814</td></tr><tr><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>+1740.43</td><td>+53.87</td><td>781</td></tr><tr><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1696.33</td><td>+52.74</td><td>794</td></tr><tr><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>+1631.51</td><td>+40.30</td><td>827</td></tr><tr><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1623.19</td><td>+100.42</td><td>750</td></tr><tr><td>core_structure @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>+1522.07</td><td>+30.98</td><td>896</td></tr><tr><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1514.27</td><td>+75.91</td><td>796</td></tr><tr><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1350.92</td><td>+51.99</td><td>832</td></tr><tr><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1241.99</td><td>+37.14</td><td>878</td></tr><tr><td>core_structure @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>+1132.56</td><td>+27.81</td><td>947</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Top Triple Configs</h2>
+      <table>
+        <thead>
+          <tr><th>Rank</th><th>ETH Config</th><th>DOGE Config</th><th>ADA Config</th><th>Positive Months</th><th>Total Gross</th><th>Resolved</th><th>Best Month</th><th>Worst Month</th></tr>
+        </thead>
+        <tbody><tr><td>1</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+2358.11</strong></td><td>661</td><td>+661.57</td><td>+106.78</td></tr><tr><td>2</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+2085.84</strong></td><td>743</td><td>+717.69</td><td>+55.90</td></tr><tr><td>3</td><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+2012.71</strong></td><td>699</td><td>+584.50</td><td>+106.02</td></tr><tr><td>4</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1968.60</strong></td><td>712</td><td>+555.60</td><td>+3.13</td></tr><tr><td>5</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+1903.78</strong></td><td>745</td><td>+525.83</td><td>+91.17</td></tr><tr><td>6</td><td>core_structure @ 2.5R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+1794.34</strong></td><td>814</td><td>+526.07</td><td>+81.85</td></tr><tr><td>7</td><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+1740.43</strong></td><td>781</td><td>+476.94</td><td>+53.87</td></tr><tr><td>8</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1696.33</strong></td><td>794</td><td>+680.44</td><td>+52.74</td></tr><tr><td>9</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+1631.51</strong></td><td>827</td><td>+442.23</td><td>+40.30</td></tr><tr><td>10</td><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1623.19</strong></td><td>750</td><td>+457.21</td><td>+100.42</td></tr><tr><td>11</td><td>core_structure @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>7/7</td><td style='background:#dff4df'><strong>+1522.07</strong></td><td>896</td><td>+347.91</td><td>+30.98</td></tr><tr><td>12</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 3.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1514.27</strong></td><td>796</td><td>+428.70</td><td>+75.91</td></tr><tr><td>13</td><td>core_plus_momentum @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1350.92</strong></td><td>832</td><td>+439.69</td><td>+51.99</td></tr><tr><td>14</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1241.99</strong></td><td>878</td><td>+331.17</td><td>+37.14</td></tr><tr><td>15</td><td>core_structure @ 2.5R</td><td>core_plus_momentum @ 2.0R</td><td>core_plus_momentum @ 2.5R</td><td>7/7</td><td style='background:#dff4df'><strong>+1132.56</strong></td><td>947</td><td>+310.66</td><td>+27.81</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Best Triple Monthly Breakdown</h2>
+      <table>
+        <thead>
+          <tr><th>Month</th><th>ETH Status</th><th>ETH Gross</th><th>ETH Resolved</th><th>DOGE Status</th><th>DOGE Gross</th><th>DOGE Resolved</th><th>ADA Status</th><th>ADA Gross</th><th>ADA Resolved</th><th>Combined</th><th>Total Resolved</th></tr>
+        </thead>
+        <tbody><tr><td>2025-09</td><td>Loss</td><td>-67.87</td><td>18</td><td>Profit</td><td>+209.16</td><td>42</td><td>Profit</td><td>+57.81</td><td>30</td><td style='background:#dff4df'><strong>+199.10</strong></td><td>90</td></tr><tr><td>2025-10</td><td>Profit</td><td>+236.55</td><td>44</td><td>Profit</td><td>+145.49</td><td>53</td><td>Loss</td><td>-82.80</td><td>17</td><td style='background:#dff4df'><strong>+299.24</strong></td><td>114</td></tr><tr><td>2025-11</td><td>Profit</td><td>+178.76</td><td>38</td><td>Profit</td><td>+66.77</td><td>71</td><td>Profit</td><td>+347.33</td><td>26</td><td style='background:#dff4df'><strong>+592.86</strong></td><td>135</td></tr><tr><td>2025-12</td><td>Profit</td><td>+44.60</td><td>10</td><td>Loss</td><td>-153.23</td><td>38</td><td>Profit</td><td>+306.54</td><td>34</td><td style='background:#dff4df'><strong>+197.91</strong></td><td>82</td></tr><tr><td>2026-01</td><td>Profit</td><td>+57.98</td><td>34</td><td>Profit</td><td>+93.26</td><td>37</td><td>Loss</td><td>-44.46</td><td>44</td><td style='background:#dff4df'><strong>+106.78</strong></td><td>115</td></tr><tr><td>2026-02</td><td>Profit</td><td>+150.65</td><td>26</td><td>Profit</td><td>+279.21</td><td>18</td><td>Profit</td><td>+231.71</td><td>9</td><td style='background:#dff4df'><strong>+661.57</strong></td><td>53</td></tr><tr><td>2026-03</td><td>Profit</td><td>+13.63</td><td>27</td><td>Profit</td><td>+303.09</td><td>22</td><td>Loss</td><td>-16.05</td><td>23</td><td style='background:#dff4df'><strong>+300.67</strong></td><td>72</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
