@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import QRCode from 'qrcode';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useChainId, useSendTransaction, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
@@ -158,15 +158,49 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
   const [choice, setChoice] = useState<CoinChoice>('BTC');
   const [modalOpen, setModalOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
+  const launchRef = useRef<HTMLButtonElement>(null);
   const selected = CHOICES.find(item => item.key === choice)!;
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (modalOpen && !dialog.open) dialog.showModal();
-    else if (!modalOpen && dialog.open) dialog.close();
+    if (!modalOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const page = pageRef.current;
+    page?.setAttribute('inert', '');
+    const animationFrame = window.requestAnimationFrame(() => {
+      dialogRef.current?.querySelector<HTMLButtonElement>('.modal-dismiss')?.focus();
+    });
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      page?.removeAttribute('inert');
+      document.body.style.overflow = originalOverflow;
+      launchRef.current?.focus();
+    };
   }, [modalOpen]);
+
+  function handleDialogKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setModalOpen(false);
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = Array.from(
+      dialogRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])') || []
+    ).filter(element => element.getClientRects().length > 0);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
 
   // A public Solovled contact email must be explicitly selected before publication.
   // Do not silently expose the personal Gmail address used in earlier testing.
@@ -174,7 +208,7 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
   const validContactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(publicContactEmail);
 
   return <div className={darkMode ? 'site-shell theme-dark' : 'site-shell'}>
-    <div className="paper-page">
+    <div className="paper-page" ref={pageRef}>
       <header className="folio-header">
         <a className="folio-name" href="https://solovled188.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Solovled writing on Substack">Solovled</a>
         <button className="theme-toggle" type="button" aria-label={darkMode ? 'Use light appearance' : 'Use dark appearance'} aria-pressed={darkMode} onClick={() => setDarkMode(value => !value)}>
@@ -193,7 +227,7 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
         <section className="support-essay" aria-labelledby="support-heading">
           <h2 id="support-heading">Support My Work</h2>
           <p>If something you have read here has stayed with you, you can support the independent work behind it. It is entirely voluntary, and there is no subscription or commitment.</p>
-          <button className="support-trigger" type="button" onClick={() => setModalOpen(true)}>Leave a little support <span aria-hidden="true">↗</span></button>
+          <button ref={launchRef} className="support-trigger" type="button" onClick={() => setModalOpen(true)}>Leave a little support <span aria-hidden="true">↗</span></button>
           <p className="support-fineprint">One-time crypto contribution · BTC, USDC or ETH</p>
         </section>
 
@@ -215,14 +249,12 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
       </footer>
     </div>
 
-    <dialog
-      ref={dialogRef}
-      className="support-dialog"
-      aria-labelledby="payment-modal-title"
-      onClose={() => setModalOpen(false)}
-      onClick={event => { if (event.target === event.currentTarget) setModalOpen(false); }}
-    >
-      <div className="modal-card">
+    <div className={modalOpen ? 'payment-overlay is-open' : 'payment-overlay'}
+      aria-hidden={!modalOpen}
+      onMouseDown={event => { if (event.target === event.currentTarget) setModalOpen(false); }}>
+      <div ref={dialogRef} className="support-dialog" role="dialog" aria-modal="true"
+        aria-labelledby="payment-modal-title" tabIndex={-1} onKeyDown={handleDialogKeyDown}>
+        <div className="modal-card">
         <div className="modal-topline">
           <span className="small-label">SOLOVLED / ONE-TIME SUPPORT</span>
           <button className="modal-dismiss" type="button" aria-label="Close payment options" onClick={() => setModalOpen(false)}>×</button>
@@ -247,7 +279,8 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
             ? <EvMPayment key={choice} coin={choice} />
             : <div className="setup-note wallet-pending"><h3>Wallet connection is being prepared.</h3><p>Digital wallet payments are temporarily unavailable.</p></div>}
         <div className="closing-note"><p>Check the network, amount, and complete receiving address in your wallet before sending. Crypto transfers cannot be reversed. Support does not grant membership or paid-content access.</p></div>
+        </div>
       </div>
-    </dialog>
+    </div>
   </div>;
 }
