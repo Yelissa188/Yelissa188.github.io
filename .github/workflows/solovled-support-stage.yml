@@ -1,0 +1,56 @@
+name: Stage Solovled Support static build
+on:
+  push:
+    paths:
+      - '.github/workflows/solovled-support-stage.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact Support app development branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/solovled-support-draft
+          path: support-source
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: support-source/support-app
+        run: npm install --no-audit --no-fund
+
+      - name: Build the static /support/ site
+        working-directory: support-source/support-app
+        run: npm run build
+
+      - name: Checkout master in isolated staging directory
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          path: stage
+
+      - name: Commit compiled artifacts to nonproduction staging branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd stage
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan support-built-output
+          git rm -rf .
+          mkdir -p support
+          cp -a ../support-source/support-app/dist/. support/
+          test -f support/index.html
+          test -n "$(find support/assets -type f -print -quit)"
+          git add -A
+          git commit -m "Build Solovled Support static assets (staging, not public)"
+          git push origin HEAD:refs/heads/support-built-output
