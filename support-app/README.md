@@ -2,14 +2,26 @@
 
 A standalone, editorial-style one-time crypto support page for Solovled. This app lives under `support-app/` so the minimal Solovled homepage stays independent. The published URL is `https://yelissa188.github.io/support/`. Earlier quant reports are archived in the `draft/quant-reports-2026-11-22` branch, not published from `master`.
 
-## Visual direction (reference screenshot supplied 2026-11-22)
+## Support operation standard (2026-11-22)
 
-- Clean, narrow personal-publication column, ivory rounded canvas on a quiet gray backdrop, serif brand and headings, sans-serif body, generous reading whitespace. **No decorative images**.
-- A real light/dark switch in the header.
-- Main donation area is a generously sized, premium editorial card directly displayed beneath the short introduction. There is **no payment popup** or required extra click.
-- BTC is selected by default, with the full Bitcoin QR, address, and copy/download actions already visible. USDC and ETH remain selectable in the same prominent card, using the existing Base payment workflow.
-- Currency tabs, QR, recipient and payment buttons are accessible within the page. The theme toggle remains functional.
-- Footer: [Instagram `@solovled_188`](https://www.instagram.com/solovled_188/), confirmed public email [yelissa188@outlook.com](mailto:yelissa188@outlook.com), and [Substack](https://solovled188.substack.com/). The Outlook address was explicitly approved for public use and is now linked through `mailto:`.
+**Public UX:** The Support card stays inline with the editorial layout. No wallet connection, login, signature, dApp approval, Web3 provider request, token approval or on-site transaction broadcasting. These are voluntary one-time contributions.
+
+1. Visitor chooses **BTC** (Bitcoin Mainnet), **USDC** (native Circle USDC, Base Mainnet chain ID 8453), or **ETH** (native ETH on Base Mainnet 8453). No other network/bridged USDC is intended.
+2. Each currency shows its own **public recipient address QR** immediately, plus the complete address, **Copy address** and **Download QR** PNG buttons. The QR intentionally holds the address **only** for broad wallet scanning compatibility. On mobile, download or copy the address rather than attempting to scan a code on the same screen.
+3. The sender opens **their own wallet**, selects the correct asset and network, scans the code or pastes the full address, enters their chosen amount, and **checks the final details in their wallet** before approving. Site never sends a transaction.
+4. **Optional MetaMask mobile shortcut** for USDC/ETH (not BTC): an explicit external link to official `https://link.metamask.io/send/` deep links on Base 8453, with checked amount and recipient. It might be unsupported in a wallet/browser, so the address-only QR/copy path always remains available. The shortcut does **not connect the wallet to this website**, although the wallet can show its own review or security screens.
+5. For USDC: verify token is **Circle-native USDC** on Base, contract `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`. Do **not** use bridged USDbC or USDC on Ethereum mainnet.
+6. For ETH: explicitly use **ETH on Base mainnet** rather than defaulting to Ethereum mainnet. BTC is Bitcoin mainnet only.
+7. Only public addresses and locally generated QR data are used. Never embed user private keys, seeds, or collected email addresses. No automatic network change or signatures. Payment receipt verification is done by the sender in their wallet or trusted explorer.
+
+**Before broad promotion:** Independently decode each QR and confirm its exact corresponding address; check both QR PNG downloads and copy controls on desktop/iOS; test MetaMask optional deep links on a mobile wallet without approving any actual transfer; confirm receiver ownership. The site itself has no view into whether a payment has been completed.
+
+## Visual direction
+
+- Refined ivory rounded canvas, large, obvious but elegant donation card with fine borders and typographic hierarchy. No decorative imagery.
+- BTC, USDC and ETH share consistent QR, address and Download QR UI with the same spacious card.
+- Light/dark toggle remains functional.
+- Footer: [Instagram](https://www.instagram.com/solovled_188/), [yelissa188@outlook.com](mailto:yelissa188@outlook.com), [Substack](https://solovled188.substack.com/).
 
 ## Early access waitlist (published Tally form)
 
@@ -21,24 +33,23 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 - Before announcing broadly: submit one authorized test entry, check Tally submissions and the notification email receipt, and inspect privacy/consent text. No paid subscription or automatic launch emails are created by this form.
 - Never store readers' addresses or messages in the public GitHub repository.
 
-## Included payment options
+## Included payment methods
 
-- **Bitcoin**: Bitcoin mainnet receive address, locally generated QR code, copy and save as PNG (no wallet connection needed).
-- **USDC on Base**: official Circle native USDC ERC-20 transfer, **not** bridged USDbC.
-- **ETH on Base**: native ETH transfer.
-- Currency selector, suggested/freeform amounts, user wallet approval, Base transaction receipts and explorer links.
-- No smart-contract deployment, no backend, no admin keys, no automatic subscriptions, no ERC-20 allowances.
+- **BTC**: Bitcoin mainnet address and QR, copy/save PNG.
+- **USDC on Base**: static recipient QR, copy/save PNG, optional MetaMask transaction-prefill shortcut.
+- **ETH on Base**: static recipient QR, copy/save PNG, optional MetaMask transaction-prefill shortcut.
+- **No WalletConnect / RainbowKit / Wagmi**: the site never asks visitors to connect, sign, approve tokens or grant account access.
 
 ## Deployment and verification
 
 1. The public EVM receiving address is configured in `src/config.ts`: `0x8b62bCC8D10107dbB1Ce9c7b537e212D345949e5` (EIP-55 checksum checked). Verify it is yours by comparing with your wallet before publishing. Never share a seed phrase or private key.
-2. The **public** Reown/WalletConnect Project ID `de7e1dc23bcb790ba29acee520f261af` is configured in `src/config.ts`. Confirm that the eventual Pages origin (`https://yelissa188.github.io`) is allowed in your Reown project settings.
-3. No `.env.local` is required. The public Project ID and receiver live in `src/config.ts`. Use `VITE_REOWN_PROJECT_ID` only to override the public ID when testing. Vite VITE_ variables are browser-visible; **never place private keys or secrets in them**.
+2. No Reown/WalletConnect Project ID is needed. The site uses QR and native wallet deep links only.
+3. No `.env.local` or wallet project ID is required. Public receiving addresses live in `src/config.ts`; never place secrets in source code.
 4. Run `npm install`, `npm run dev`, and `npm run build`. Use Node 20+.
 5. For branch-based GitHub Pages publishing, copy the contents of `support-app/dist/` into the repository's top-level `support/` folder. Preserve the current Solovled root `index.html`. Historical `data-analysis/` and `strategy-portfolios/` are archived in the quant draft branch; do not restore them to the public homepage.
 6. The public page has been published. The QR string, token contract, amounts, network, wallet connectivity, and real transaction receipts still require owner testing with a small amount.
 
-**Important:** The publicly visible page does not initiate payments without visitor action and wallet confirmation. The receiver and Reown Project ID are configured. Wallet and payment flows still require browser/mobile and tiny real-transaction verification.
+**Important:** The website cannot connect a wallet, initiate blockchain requests, or verify incoming transfers. Optional external MetaMask send links are user-initiated and need real-device compatibility testing.
 
 ## Configured chain and token
 
@@ -53,25 +64,21 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 
 ## Constraints and pending validation
 
-- RainbowKit requires a public Reown/WalletConnect Project ID for full wallet support (mobile WalletConnect included).
-- The **connected wallet belongs to the contributor**; the receiving address is the fixed, checksum-validated `SUPPORT_RECEIVER` constant, never the connected address or a URL parameter.
-- The app does not exchange currencies, bridge chains, calculate USD-to-ETH exchange rates, or verify donations from third-party wallets.
-- Suggested amounts mean **units of the selected token**, not USD. ETH suggestions use small fractional amounts (for example `0.001 ETH`), while USDC suggestions use whole USDC units.
-- End-to-end wallet transactions, chain switching, builds and public Pages deployment still require validation against a real environment before enabling checkout.
+- Address-only QR codes intentionally avoid less-portable EIP-681 token transfer URIs.
+- MetaMask official send deeplinks are only optional shortcuts, not broad compatibility guarantees. Other wallets should use QR or Copy address.
+- Mobile/desktop tests are still needed; do not infer real transfers from the QR or a user clicking a link.
+- The two Base assets share one public EVM receiving address; network and native token selection are essential.
 
 ## Testing checklist
 
-- [ ] `npm run build` succeeds with installed dependencies.
-- [ ] Existing GitHub Pages homepage remains unchanged.
-- [ ] BTC QR decodes to the exact given mainnet address; saving and copying work on mobile.
-- [x] Public Reown Project ID configured in source (domain settings still need verification).
-- [ ] Receiver ownership verified in user's MetaMask.
-- [ ] MetaMask mobile and desktop connect/switch to Base reliably.
-- [ ] Confirm amounts are denominated in token units, chain ID 8453, fixed receiver, and native USDC contract.
-- [ ] Test small USDC (Base) and ETH (Base) transfers separately. Inspect receipts and recipients on Basescan.
-- [ ] Test errors for insufficient funds, wallet rejection, wrong network, invalid amount, no wallet.
-- [ ] Confirm phone reading and taps, modal keyboard navigation, layered RainbowKit wallet popup and typography.
-- [x] Explicitly approved public email configured in footer (`mailto:yelissa188@outlook.com`).
-- [ ] Verify Outlook link from the built page on desktop/mobile.
+- [ ] `npm run build` succeeds on the latest revision.
+- [ ] BTC, USDC, ETH QR each decode exactly to their corresponding **public receiving address**.
+- [ ] Each of the three Download QR PNG controls works on desktop and mobile.
+- [ ] Each Copy address action copies the full correct address.
+- [ ] USDC/ETH Base-only warnings remain visible at phone widths.
+- [ ] Optional MetaMask send links prefill the correct asset, address, network and amount on a real mobile wallet without ever connecting the webpage.
+- [ ] User confirms receiving wallet ownership.
+- [ ] No wallet connector/transaction-sending scripts exist in production bundles.
+- [ ] Home `Hello Solovled` and Tally link remain intact.
 
-Status: **Public page deployed; live wallet/payment validation pending**.
+Status: **Public support page; external wallet shortcut not device-verified.**
