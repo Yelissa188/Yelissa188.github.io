@@ -6,26 +6,26 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 
 - **Bitcoin**: Bitcoin mainnet receive address, locally generated QR code, copy and save as PNG (no wallet connection needed).
 - **USDC on Base**: official Circle native USDC ERC-20 transfer, **not** bridged USDbC.
-- **ETH on Ethereum mainnet**: native ETH transfer.
-- Currency selector, suggested/freeform amounts, user wallet approval, network-specific transaction receipts and explorer links.
+- **ETH on Base**: native ETH transfer.
+- Currency selector, suggested/freeform amounts, user wallet approval, Base transaction receipts and explorer links.
 - No smart-contract deployment, no backend, no admin keys, no automatic subscriptions, no ERC-20 allowances.
 
 ## Setup (do not deploy a payable version until verified)
 
 1. The public EVM receiving address is configured in `src/config.ts`: `0x8b62bCC8D10107dbB1Ce9c7b537e212D345949e5` (EIP-55 checksum checked). Verify it is yours by comparing with your wallet before publishing. Never share a seed phrase or private key.
-2. Create a free Reown/WalletConnect project at <https://cloud.reown.com/> and register the eventual Pages origin (`https://yelissa188.github.io`). You only need to share the **public** Project ID.
-3. Copy `.env.example` to `.env.local` and set public `VITE_REOWN_PROJECT_ID` only. The public receiver lives in `src/config.ts`. Vite VITE_ variables are embedded into the browser build, so **never place secrets in them**.
+2. The **public** Reown/WalletConnect Project ID `de7e1dc23bcb790ba29acee520f261af` is configured in `src/config.ts`. Confirm that the eventual Pages origin (`https://yelissa188.github.io`) is allowed in your Reown project settings.
+3. No `.env.local` is required. The public Project ID and receiver live in `src/config.ts`. Use `VITE_REOWN_PROJECT_ID` only to override the public ID when testing. Vite VITE_ variables are browser-visible; **never place private keys or secrets in them**.
 4. Run `npm install`, `npm run dev`, and `npm run build`. Use Node 20+.
 5. For branch-based GitHub Pages publishing, copy the contents of `support-app/dist/` into the repository's top-level `support/` folder. Preserve existing root `index.html`, `data-analysis/`, and `strategy-portfolios/`.
 6. Publish only after desktop/mobile checks and explicit recipient verification. The QR string, token contract, amount, network and confirmed transaction must be tested with a small real amount.
 
-**Important:** The draft PR does **not** change GitHub Pages source settings or start any payments. The receiver is already configured, but the Reown Project ID is blank. Until this public ID is supplied, EVM sending stays disabled and BTC QR remains available.
+**Important:** The draft PR does **not** change GitHub Pages source settings or start any payments. The receiver and Reown Project ID are now configured. Wallet and payment flows still require browser/mobile and tiny real-transaction verification before production use.
 
 ## Configured chain and token
 
 - Base mainnet chain ID: `8453`.
 - Circle-native USDC on Base: `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` (6 decimals).
-- Ethereum mainnet ETH: native, 18 decimals, chain ID `1` (mainnet gas fees may be higher).
+- Base ETH: native, 18 decimals, chain ID `8453`.
 - BTC: `bc1qlqs9q8akk45le4yu2dgxdlmv78r8kcmslkr398` on Bitcoin mainnet.
 
 Circle contract documentation: <https://www.circle.com/multi-chain-usdc/base>.
@@ -45,10 +45,11 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 - [ ] `npm run build` succeeds with installed dependencies.
 - [ ] Existing GitHub Pages homepage remains unchanged.
 - [ ] BTC QR decodes to the exact given mainnet address; saving and copying work on mobile.
-- [ ] Receiver ownership verified in user's wallet; public Reown Project ID configured.
-- [ ] MetaMask mobile and desktop connect/switch to Base and Ethereum mainnet reliably.
-- [ ] Confirm amounts are denominated in token units, chain IDs 8453 / 1, fixed receiver, and native USDC contract.
-- [ ] Test small USDC (Base) and ETH (Ethereum mainnet) transfers separately. Inspect receipts and recipients on Basescan / Etherscan.
+- [x] Public Reown Project ID configured in source (domain settings still need verification).
+- [ ] Receiver ownership verified in user's MetaMask.
+- [ ] MetaMask mobile and desktop connect/switch to Base reliably.
+- [ ] Confirm amounts are denominated in token units, chain ID 8453, fixed receiver, and native USDC contract.
+- [ ] Test small USDC (Base) and ETH (Base) transfers separately. Inspect receipts and recipients on Basescan.
 - [ ] Test errors for insufficient funds, wallet rejection, wrong network, invalid amount, no wallet.
 - [ ] Confirm phone reading and taps, footer links and typography.
 
