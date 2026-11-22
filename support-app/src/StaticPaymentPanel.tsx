@@ -63,7 +63,7 @@ export default function StaticPaymentPanel({ coin }: { coin: CoinChoice }) {
         <button className="subtle-button" type="button" onClick={copyAddress}>{copyState}</button>
         {qr && <a className="subtle-button" href={qr} download={`solovled-${coin.toLowerCase()}-${isBitcoin ? 'bitcoin' : 'base'}-qr.png`}>Download QR</a>}
       </div>
-      <p className="qr-caption">Scan with your wallet, or save this QR image for later.</p>
+      <p className="qr-caption">On desktop, scan with your phone wallet. On mobile, tap Download QR (or press and hold the QR image) to save it, or use Copy address.</p>
     </div>
     <div className="wallet-info">
       <span className="small-label">{isBitcoin ? 'BITCOIN MAINNET' : isUsdc ? 'USDC · BASE MAINNET' : 'ETH · BASE MAINNET'}</span>
