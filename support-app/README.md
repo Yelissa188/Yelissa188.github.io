@@ -9,7 +9,16 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 - One "Leave a little support" button opens a centered, minimalist payment-card dialog rather than putting a large payment panel in the article body.
 - The BTC QR image appears **only inside the payment dialog** when Bitcoin is selected.
 - Dialog supports Escape, outside click, focus containment/restoration and keeps transaction state mounted when closed; intentionally uses a wallet-compatible overlay rather than the browser top-layer native dialog, so RainbowKit's own connection popup can appear above it.
-- Footer: [Instagram `@solovled_188`](https://www.instagram.com/solovled_188/), email placeholder, and [Substack](https://solovled188.substack.com/). The personal public email was **not** explicitly selected, so it is not embedded into this public GitHub repository. Before publication, set a confirmed public address via `VITE_SOLOVLED_PUBLIC_EMAIL` during the build and verify that its mailto link works.
+- Footer: [Instagram `@solovled_188`](https://www.instagram.com/solovled_188/), confirmed public email [yelissa188@outlook.com](mailto:yelissa188@outlook.com), and [Substack](https://solovled188.substack.com/). The Outlook address was explicitly approved for public use and is now linked through `mailto:`.
+
+## Potential membership launch waitlist (not built yet)
+
+A separate low-friction optional waitlist is under consideration, **not a paid subscription**:
+- Required: email.
+- Optional: brief note/message.
+- Required unticked checkbox: agree to receive a one-time launch notification about future membership/subscription options, with unsubscribe/contact information.
+- A form backend (recommended: Tally with stored submissions, notification to Outlook, export and optional Notion sync) must be configured and tested before a visible submit button is enabled. GitHub Pages by itself cannot store submissions.
+- Do not claim that email confirmations or launch emails are automated until independently tested. Avoid committing personal visitor messages/addresses to the public GitHub repository.
 
 ## Included payment options
 
@@ -61,6 +70,7 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 - [ ] Test small USDC (Base) and ETH (Base) transfers separately. Inspect receipts and recipients on Basescan.
 - [ ] Test errors for insufficient funds, wallet rejection, wrong network, invalid amount, no wallet.
 - [ ] Confirm phone reading and taps, modal keyboard navigation, layered RainbowKit wallet popup and typography.
-- [ ] Select and configure explicitly public Solovled contact email; test mailto link.
+- [x] Explicitly approved public email configured in footer (`mailto:yelissa188@outlook.com`).
+- [ ] Verify Outlook link from the built page on desktop/mobile.
 
 Status: **Draft / not deployed / not payment-verified**.
