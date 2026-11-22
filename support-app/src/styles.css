@@ -147,9 +147,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, .address-field:focus
 .copyright { color: var(--muted); font: 11px/1.4 Arial, Helvetica, sans-serif; margin-top: 22px; }
 
 /* Native dialog: keyboard Escape, focus containment and backdrop handled by the browser. */
+.payment-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: none;
+  align-items: center;
+  justify-items: center;
+  padding: 18px;
+  overflow-y: auto;
+  background: rgba(28,27,26,.60);
+  backdrop-filter: blur(5px);
+}
+.payment-overlay.is-open { display: grid; }
 .support-dialog {
-  width: min(735px, calc(100% - 32px));
-  max-height: min(88vh, 930px);
+  width: min(735px, 100%);
+  max-height: min(88dvh, 930px);
   margin: auto;
   padding: 0;
   border: 1px solid var(--soft-border);
@@ -159,7 +172,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, .address-field:focus
   box-shadow: 0 30px 90px rgba(10,8,6,.28);
   overflow: auto;
 }
-.support-dialog::backdrop { background: rgba(28,27,26,.60); backdrop-filter: blur(5px); }
 .modal-card { padding: 31px 36px 29px; }
 .modal-topline { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 .small-label { color: var(--light-muted); font: 700 10px/1.5 Arial, Helvetica, sans-serif; letter-spacing: .16em; }
@@ -246,7 +258,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, .address-field:focus
   .folio-main { padding-top: 36px; }
   .support-essay h2 { font-size: 30px; }
   .social-links { gap: 14px 23px; }
-  .support-dialog { width: calc(100% - 18px); max-height: 92dvh; border-radius: 16px; }
+  .support-dialog { width: 100%; max-height: 92dvh; border-radius: 16px; }
+  .payment-overlay { padding: 9px; }
   .modal-card { padding: 21px 17px; }
   .modal-intro h2 { font-size: 31px; }
   .currency { min-height: 65px; padding: 12px 8px; }
