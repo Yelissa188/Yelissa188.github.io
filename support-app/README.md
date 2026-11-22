@@ -27,7 +27,8 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 
 - Public form: https://tally.so/r/J1ORbK (form ID `J1ORbK`, workspace `My workspace`).
 - Form published on 2026-11-22 with required email, optional note, explicitly required unticked launch-notification consent, CAPTCHA, and English thank-you page.
-- An editorial text link in `App.tsx` points to the actual live Tally form. The site itself does not accept form data directly.
+- The form is **embedded inline** on the public Support page via the official Standard iframe URL `https://tally.so/embed/J1ORbK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1` and the responsive Tally embed script. Visitors can submit without navigating away. A small direct link remains only as an accessibility/fallback option.
+- Form submissions and notifications still go through Tally, not the GitHub Pages host. The embed does not create a separate form or copy visitors' details to the repository.
 - Free Tally self-email notification is enabled. By default it is sent to the **Tally form creator's account email**, which has not been inspected or confirmed here. It is **not necessarily** the public footer contact `yelissa188@outlook.com`. Custom destination/subject/body were rejected as Pro-only.
 - Free plan may not apply the previously configured advanced visual styling to the published form.
 - Before announcing broadly: submit one authorized test entry, check Tally submissions and the notification email receipt, and inspect privacy/consent text. No paid subscription or automatic launch emails are created by this form.
@@ -79,6 +80,6 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 - [ ] Optional MetaMask send links prefill the correct asset, address, network and amount on a real mobile wallet without ever connecting the webpage.
 - [ ] User confirms receiving wallet ownership.
 - [ ] No wallet connector/transaction-sending scripts exist in production bundles.
-- [ ] Home `Hello Solovled` and Tally link remain intact.
+- [ ] Home `Hello Solovled` stays intact; the Tally iframe loads and submits successfully at phone and desktop sizes.
 
 Status: **Public support page; external wallet shortcut not device-verified.**
