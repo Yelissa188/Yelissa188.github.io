@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useChainId, useSendTransaction, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
-import { base } from 'wagmi/chains';
+import { base, mainnet } from 'wagmi/chains';
 import { parseAbi, parseEther, parseUnits } from 'viem';
 import { BASE_USDC, BTC_ADDRESS, CHOICES, CoinChoice, PAYEE } from './config';
 
@@ -74,6 +74,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
   // Suggestions are denominated in the selected token, NOT USD.
   const suggested = coin === 'USDC' ? ['5', '10', '25', '50'] : ['0.001', '0.003', '0.01', '0.025'];
   const [amount, setAmount] = useState(coin === 'USDC' ? '10' : '0.003');
+  const targetChain = coin === 'USDC' ? base : mainnet;
   const [transactionHash, setTransactionHash] = useState<`0x${string}` | undefined>();
   const [notice, setNotice] = useState('');
   const { address, isConnected } = useAccount();
@@ -82,7 +83,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
   const { sendTransactionAsync, isPending: sendingEth } = useSendTransaction();
   const { writeContractAsync, isPending: sendingUsdc } = useWriteContract();
   const { data: receipt, isLoading: awaitingReceipt, isError: receiptError } = useWaitForTransactionReceipt({
-    chainId: base.id,
+    chainId: targetChain.id,
     hash: transactionHash,
     query: { enabled: Boolean(transactionHash) },
   });
@@ -102,7 +103,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
     setNotice('');
     setTransactionHash(undefined);
     try {
-      if (chainId !== base.id) await switchChainAsync({ chainId: base.id });
+      if (chainId !== targetChain.id) await switchChainAsync({ chainId: targetChain.id });
       const hash = coin === 'USDC'
         ? await writeContractAsync({
             address: BASE_USDC,
@@ -114,7 +115,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
         : await sendTransactionAsync({
             to: PAYEE,
             value: parsedAmount.result,
-            chainId: base.id,
+            chainId: mainnet.id,
           });
       setTransactionHash(hash);
     } catch (error) {
@@ -124,20 +125,20 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
 
   return <div className="evm-panel">
     <div className="amount-column">
-      <span className="small-label">Choose an amount · {coin}</span>
+      <span className="small-label">Choose an amount · {coin} units</span>
       <div className="amount-options">{suggested.map(value =>
         <button key={value} type="button" className={amount === value ? 'amount active' : 'amount'} onClick={() => { setAmount(value); setTransactionHash(undefined); setNotice(''); }}>{value}</button>
       )}</div>
       <label className="custom-label" htmlFor="gift-amount">Or enter your own amount</label>
       <div className="input-wrap"><input id="gift-amount" inputMode="decimal" autoComplete="off" value={amount} onChange={e => { setAmount(e.target.value); setTransactionHash(undefined); setNotice(''); }} aria-describedby="gift-help" /><span>{coin}</span></div>
-      <p className="fine-print" id="gift-help">One-time contribution. No subscription, membership, or automatic recurring charges.</p>
+      <p className="fine-print" id="gift-help">Amounts are in {coin}, not USD. {coin === 'ETH' ? 'Ethereum mainnet network fees may be significant. ' : 'Base ETH is required for the network fee. '}One-time only, no recurring charges.</p>
     </div>
     <div className="pay-column">
-      <div className="detail-row"><span>Network</span><strong>Base · Chain 8453</strong></div>
-      <div className="detail-row"><span>Asset</span><strong>{coin === 'USDC' ? 'Native USDC (Circle)' : 'ETH (Base)'}</strong></div>
+      <div className="detail-row"><span>Network</span><strong>{coin === 'USDC' ? 'Base · Chain 8453' : 'Ethereum · Chain 1'}</strong></div>
+      <div className="detail-row"><span>Asset</span><strong>{coin === 'USDC' ? 'Native USDC (Circle)' : 'ETH (Ethereum Mainnet)'}</strong></div>
       <div className="detail-row"><span>Recipient</span><strong>{PAYEE ? shorten(PAYEE) : 'Not configured yet'}</strong></div>
       {coin === 'USDC' && <div className="detail-row"><span>Token contract</span><strong title={BASE_USDC}>{shorten(BASE_USDC)}</strong></div>}
-      {PAYEE ? <div className="full-address">{PAYEE}</div> : <div className="setup-note">The receiving wallet will be configured after Solovled confirms the new public address. Payments are disabled.</div>}
+      {PAYEE ? <div className="full-address">{PAYEE}</div> : <div className="setup-note">Receiver address is invalid. Payments are disabled.</div>}
       <div className="wallet-connect"><ConnectButton accountStatus="address" chainStatus="icon" showBalance={false} /></div>
       {parsedAmount.error && <p role="alert" className="error-text">{parsedAmount.error}</p>}
       <button className="primary-button" type="button" onClick={initiate} disabled={!ready || busy}>
@@ -146,8 +147,8 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
       <p className="fine-print">Your wallet will display the final amount, network fee, recipient and transaction for approval. No allowance or unlimited token approval is requested.</p>
       {notice && <p role="alert" className="error-text">{notice}</p>}
       {transactionHash && <div className="tx-result" role="status">
-        {success ? 'Contribution confirmed on Base.' : failure ? 'The on-chain transfer did not confirm successfully.' : 'Transaction submitted. Waiting for Base confirmation.'}
-        <a href={`https://basescan.org/tx/${transactionHash}`} target="_blank" rel="noreferrer noopener">View transaction on Basescan ↗</a>
+        {success ? 'Transaction confirmed on ' + targetChain.name + '.' : failure ? 'The on-chain transfer did not confirm successfully.' : 'Transaction submitted. Waiting for confirmation.'}
+        <a href={`${coin === 'USDC' ? 'https://basescan.org/tx/' : 'https://etherscan.io/tx/'}${transactionHash}`} target="_blank" rel="noreferrer noopener">View transaction in block explorer ↗</a>
       </div>}
     </div>
   </div>;
