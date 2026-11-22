@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CHOICES, CoinChoice } from './config';
 import StaticPaymentPanel from './StaticPaymentPanel';
 
@@ -7,6 +7,35 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const selected = CHOICES.find(item => item.key === choice)!;
   const publicContactEmail = 'yelissa188@outlook.com';
+
+  useEffect(() => {
+    // Tally's standard embed script makes the inline iframe height responsive.
+    // The frame also has a direct src fallback when that script is unavailable.
+    const scriptUrl = 'https://tally.so/widgets/embed.js';
+    const tallyWindow = window as Window & { Tally?: { loadEmbeds: () => void } };
+    const iframe = document.getElementById('solovled-waitlist-embed') as HTMLIFrameElement | null;
+    const loadFallback = () => {
+      if (iframe && !iframe.getAttribute('src')) {
+        iframe.src = iframe.dataset.tallySrc || '';
+      }
+    };
+    const loadFrame = () => {
+      tallyWindow.Tally?.loadEmbeds();
+      loadFallback();
+    };
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${scriptUrl}"]`);
+    if (existing) {
+      if (tallyWindow.Tally) loadFrame();
+      else existing.addEventListener('load', loadFrame, { once: true });
+    } else {
+      const script = document.createElement('script');
+      script.src = scriptUrl;
+      script.async = true;
+      script.onload = loadFrame;
+      script.onerror = loadFallback;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   return <div className={darkMode ? 'site-shell theme-dark' : 'site-shell'}>
     <div className="paper-page">
@@ -61,10 +90,24 @@ export default function App() {
           <div className="waitlist-eyebrow">EARLY ACCESS</div>
           <h2 id="waitlist-heading">Be the first to know.</h2>
           <p>I'm slowly building what's next. Leave your email and an optional note if you'd like to hear when Solovled's future membership opens.</p>
-          <a className="waitlist-trigger" href="https://tally.so/r/J1ORbK" target="_blank" rel="noopener noreferrer">
-            Join the waitlist <span aria-hidden="true">↗</span>
-          </a>
+          <div className="waitlist-embed-shell">
+            <iframe
+              id="solovled-waitlist-embed"
+              title="Solovled Early Access Waitlist: email, optional message and launch notification consent"
+              data-tally-src="https://tally.so/embed/J1ORbK?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+              loading="lazy"
+              width="100%"
+              height="740"
+              frameBorder="0"
+              marginHeight={0}
+              marginWidth={0}
+              scrolling="no"
+              referrerPolicy="strict-origin-when-cross-origin"
+              style={{ width: '100%', border: 0, display: 'block' }}
+            />
+          </div>
           <p className="waitlist-fineprint">Free to join · One-time launch notification · No payment required</p>
+          <p className="waitlist-fallback">Form not showing? <a href="https://tally.so/r/J1ORbK" target="_blank" rel="noopener noreferrer">Open the accessible form</a>.</p>
         </section>
 
         <div className="author-signoff">
