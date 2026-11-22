@@ -101,7 +101,7 @@ export default function App() {
               frameBorder="0"
               marginHeight={0}
               marginWidth={0}
-              scrolling="no"
+              scrolling="auto"
               referrerPolicy="strict-origin-when-cross-origin"
               style={{ width: '100%', border: 0, display: 'block' }}
             />
