@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useChainId, useSendTransaction, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
@@ -156,57 +156,12 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
 
 export default function App({ walletEnabled }: { walletEnabled: boolean }) {
   const [choice, setChoice] = useState<CoinChoice>('BTC');
-  const [modalOpen, setModalOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const pageRef = useRef<HTMLDivElement>(null);
-  const launchRef = useRef<HTMLButtonElement>(null);
   const selected = CHOICES.find(item => item.key === choice)!;
-
-  useEffect(() => {
-    if (!modalOpen) return;
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const page = pageRef.current;
-    page?.setAttribute('inert', '');
-    const animationFrame = window.requestAnimationFrame(() => {
-      dialogRef.current?.querySelector<HTMLButtonElement>('.modal-dismiss')?.focus();
-    });
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      page?.removeAttribute('inert');
-      document.body.style.overflow = originalOverflow;
-      launchRef.current?.focus();
-    };
-  }, [modalOpen]);
-
-  function handleDialogKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      setModalOpen(false);
-      return;
-    }
-    if (event.key !== 'Tab') return;
-    const focusable = Array.from(
-      dialogRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])') || []
-    ).filter(element => element.getClientRects().length > 0);
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (!first || !last) return;
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  }
-
-  // Public contact email explicitly approved for display in the footer.
   const publicContactEmail = 'yelissa188@outlook.com';
 
   return <div className={darkMode ? 'site-shell theme-dark' : 'site-shell'}>
-    <div className="paper-page" ref={pageRef}>
+    <div className="paper-page">
       <header className="folio-header">
         <a className="folio-name" href="https://solovled188.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Solovled writing on Substack">Solovled</a>
         <button className="theme-toggle" type="button" aria-label={darkMode ? 'Use light appearance' : 'Use dark appearance'} aria-pressed={darkMode} onClick={() => setDarkMode(value => !value)}>
@@ -218,15 +173,44 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
         <section className="personal-intro" aria-labelledby="intro-heading">
           <h1 id="intro-heading">Writing, questions &amp; everything in between.</h1>
           <p>Solovled is an independent space for <strong>writing, thoughtful conversations, research, and creative experiments.</strong></p>
-          <p>Some ideas begin as a question. Others become long conversations, notes, or pieces of writing. This is where they can take their own shape, without needing to fit into a single category.</p>
-          <p className="italic-note">A small corner of the internet for curious minds and unfinished thoughts.</p>
         </section>
 
-        <section className="support-essay" aria-labelledby="support-heading">
-          <h2 id="support-heading">Support My Work</h2>
-          <p>If something you have read here has stayed with you, you can support the independent work behind it. It is entirely voluntary, and there is no subscription or commitment.</p>
-          <button ref={launchRef} className="support-trigger" type="button" onClick={() => setModalOpen(true)}>Leave a little support <span aria-hidden="true">↗</span></button>
-          <p className="support-fineprint">One-time crypto contribution · BTC, USDC or ETH</p>
+        <section className="support-feature" aria-labelledby="support-heading">
+          <div className="support-feature-top">
+            <span className="support-overline"><span className="support-status-dot" aria-hidden="true" /> INDEPENDENT WORK · OPEN SUPPORT</span>
+            <span className="support-edition">SOLOVLED / 001</span>
+          </div>
+          <div className="support-feature-heading">
+            <h2 id="support-heading">Support My Work<span className="support-heading-dot">.</span></h2>
+            <p>If something here has resonated with you, a small contribution helps independent writing and creative work continue. Choose what feels right.</p>
+          </div>
+
+          <div className="support-payment-area">
+            <div className="currency-picker" role="group" aria-label="Choose how to support Solovled">
+              {CHOICES.map(item =>
+                <button type="button" key={item.key} aria-pressed={choice === item.key} onClick={() => setChoice(item.key)}
+                  className={choice === item.key ? 'currency selected' : 'currency'}>
+                  <strong>{item.key}</strong><span>{item.network}</span>
+                </button>
+              )}
+            </div>
+            <div className="currency-description">
+              <div>
+                <span className="small-label">PAYMENT DETAILS</span>
+                <h3>{selected.label}</h3>
+              </div>
+              <span className="network-caption">{selected.network}</span>
+            </div>
+            {choice === 'BTC'
+              ? <BitcoinPanel />
+              : walletEnabled
+                ? <EvMPayment key={choice} coin={choice} />
+                : <div className="setup-note wallet-pending"><h3>Wallet connection is being prepared.</h3><p>Digital wallet payments are temporarily unavailable.</p></div>}
+          </div>
+          <div className="closing-note">
+            <span className="closing-symbol" aria-hidden="true">✳</span>
+            <p>One-time voluntary support, not a subscription. Please check the complete address, currency, and network before sending. Crypto transfers cannot be reversed.</p>
+          </div>
         </section>
 
         <section className="waitlist-essay" aria-labelledby="waitlist-heading">
@@ -253,40 +237,6 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
         </nav>
         <div className="copyright">© 2026 Solovled. All rights reserved.</div>
       </footer>
-    </div>
-
-    <div className={modalOpen ? 'payment-overlay is-open' : 'payment-overlay'}
-      aria-hidden={!modalOpen}
-      onMouseDown={event => { if (event.target === event.currentTarget) setModalOpen(false); }}>
-      <div ref={dialogRef} className="support-dialog" role="dialog" aria-modal="true"
-        aria-labelledby="payment-modal-title" tabIndex={-1} onKeyDown={handleDialogKeyDown}>
-        <div className="modal-card">
-        <div className="modal-topline">
-          <span className="small-label">SOLOVLED / ONE-TIME SUPPORT</span>
-          <button className="modal-dismiss" type="button" aria-label="Close payment options" onClick={() => setModalOpen(false)}>×</button>
-        </div>
-        <div className="modal-intro">
-          <h2 id="payment-modal-title">A little support.</h2>
-          <p>Choose what feels right. Your contribution is voluntary and always one-time.</p>
-        </div>
-        <div className="currency-picker" role="group" aria-label="Choose payment currency">
-          {CHOICES.map(item => <button type="button" key={item.key} aria-pressed={choice === item.key}
-            onClick={() => setChoice(item.key)}
-            className={choice === item.key ? 'currency selected' : 'currency'}>
-            <strong>{item.key}</strong><span>{item.network}</span>
-          </button>)}
-        </div>
-        <div className="currency-description">
-          <h3>{selected.label}</h3><span className="network-caption">{selected.network}</span>
-        </div>
-        {choice === 'BTC'
-          ? <BitcoinPanel />
-          : walletEnabled
-            ? <EvMPayment key={choice} coin={choice} />
-            : <div className="setup-note wallet-pending"><h3>Wallet connection is being prepared.</h3><p>Digital wallet payments are temporarily unavailable.</p></div>}
-        <div className="closing-note"><p>Check the network, amount, and complete receiving address in your wallet before sending. Crypto transfers cannot be reversed. Support does not grant membership or paid-content access.</p></div>
-        </div>
-      </div>
     </div>
   </div>;
 }
