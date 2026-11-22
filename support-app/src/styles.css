@@ -121,6 +121,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, .address-field:focus
   color: var(--light-muted);
   margin: 14px 0 0;
 }
+/* Optional future-member waitlist, separate from crypto support. */
+.waitlist-essay { padding-top: 43px; }
+.waitlist-eyebrow { color: var(--light-muted); font: 700 10px/1.5 Arial,Helvetica,sans-serif; letter-spacing: .15em; margin-bottom: 13px; }
+.waitlist-essay h2 { font: 400 clamp(30px, 3.2vw, 38px)/1.2 Georgia,'Times New Roman',serif; letter-spacing: -.04em; margin: 0 0 15px; }
+.waitlist-essay p { font: 16px/1.76 Arial,Helvetica,sans-serif; color: var(--muted); margin: 0 0 22px; }
+.waitlist-trigger { display: inline-block; border: 1px solid var(--ink); border-radius: 10px; padding: 11px 17px; font: 700 13px/1.3 Arial,Helvetica,sans-serif; color: var(--ink); text-decoration: none; }
+.waitlist-trigger:hover { background: var(--soft); }
+.waitlist-trigger span { margin-left: 10px; }
+.waitlist-essay .waitlist-fineprint { font: italic 12px/1.6 Arial,Helvetica,sans-serif; color: var(--light-muted); margin: 14px 0 0; }
+
 .author-signoff {
   margin-top: 64px;
   padding-bottom: 24px;
