@@ -229,6 +229,16 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
           <p className="support-fineprint">One-time crypto contribution · BTC, USDC or ETH</p>
         </section>
 
+        <section className="waitlist-essay" aria-labelledby="waitlist-heading">
+          <div className="waitlist-eyebrow">EARLY ACCESS</div>
+          <h2 id="waitlist-heading">Be the first to know.</h2>
+          <p>I'm slowly building what's next. Leave your email and an optional note if you'd like to hear when Solovled's future membership opens.</p>
+          <a className="waitlist-trigger" href="https://tally.so/r/J1ORbK" target="_blank" rel="noopener noreferrer">
+            Join the waitlist <span aria-hidden="true">↗</span>
+          </a>
+          <p className="waitlist-fineprint">Free to join · One-time launch notification · No payment required</p>
+        </section>
+
         <div className="author-signoff">
           <span className="signoff-name">Solovled</span>
           <span className="signoff-description">Writing, conversations &amp; digital experiments.</span>
