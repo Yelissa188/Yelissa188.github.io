@@ -37,7 +37,7 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 - RainbowKit requires a public Reown/WalletConnect Project ID for full wallet support (mobile WalletConnect included).
 - The **connected wallet belongs to the contributor**; the receiving address is the fixed, separately verified `VITE_SUPPORT_RECEIVER`, never the connected address or a URL parameter.
 - The app does not exchange currencies, bridge chains, calculate USD-to-ETH exchange rates, or verify donations from third-party wallets.
-- Suggested amounts mean **units of the selected token**, not USD. For ETH, `5` means 5 ETH, so choose a small custom ETH amount such as `0.001`.
+- Suggested amounts mean **units of the selected token**, not USD. ETH suggestions use small fractional amounts (for example `0.001 ETH`), while USDC suggestions use whole USDC units.
 - End-to-end wallet transactions, chain switching, builds and public Pages deployment still require validation against a real environment before enabling checkout.
 
 ## Testing checklist
