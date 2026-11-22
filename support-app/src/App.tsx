@@ -141,7 +141,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
       {PAYEE ? <div className="full-address">{PAYEE}</div> : <div className="setup-note">Receiver address is invalid. Payments are disabled.</div>}
       <div className="wallet-connect"><ConnectButton accountStatus="address" chainStatus="icon" showBalance={false} /></div>
       {parsedAmount.error && <p role="alert" className="error-text">{parsedAmount.error}</p>}
-      <button className="primary-button" type="button" onClick={initiate} disabled={!ready || busy}>
+      <button className="primary-button" type="button" onClick={initiate} disabled={!ready || busy || Boolean(transactionHash)}>
         {busy ? (awaitingReceipt ? 'Waiting for on-chain confirmation…' : 'Open your wallet to confirm…') : `Review ${amount || '0'} ${coin} in wallet`}
       </button>
       <p className="fine-print">Your wallet will display the final amount, network fee, recipient and transaction for approval. No allowance or unlimited token approval is requested.</p>
