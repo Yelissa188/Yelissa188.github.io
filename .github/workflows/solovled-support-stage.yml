@@ -45,12 +45,15 @@ jobs:
           cd stage
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan support-built-output
-          git rm -rf .
+          git fetch origin support-built-output
+          git checkout -B support-built-output FETCH_HEAD
+          rm -rf support
           mkdir -p support
           cp -a ../support-source/support-app/dist/. support/
           test -f support/index.html
           test -n "$(find support/assets -type f -print -quit)"
           git add -A
-          git commit -m "Build Solovled Support static assets (staging, not public)"
-          git push origin HEAD:refs/heads/support-built-output
+          if ! git diff --cached --quiet; then
+            git commit -m "Rebuild Solovled Support static assets (staging)"
+            git push origin HEAD:refs/heads/support-built-output
+          fi
