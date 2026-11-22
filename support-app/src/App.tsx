@@ -7,7 +7,6 @@ import { parseAbi, parseEther, parseUnits } from 'viem';
 import { BASE_USDC, BTC_ADDRESS, CHOICES, CoinChoice, PAYEE } from './config';
 
 const transferAbi = parseAbi(['function transfer(address to, uint256 amount) returns (bool)']);
-const suggested = ['5', '10', '25', '50'];
 
 function shorten(value: string) {
   return value.length > 20 ? value.slice(0, 10) + '…' + value.slice(-8) : value;
@@ -72,7 +71,9 @@ function BitcoinPanel() {
 }
 
 function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
-  const [amount, setAmount] = useState('10');
+  // Suggestions are denominated in the selected token, NOT USD.
+  const suggested = coin === 'USDC' ? ['5', '10', '25', '50'] : ['0.001', '0.003', '0.01', '0.025'];
+  const [amount, setAmount] = useState(coin === 'USDC' ? '10' : '0.003');
   const [transactionHash, setTransactionHash] = useState<`0x${string}` | undefined>();
   const [notice, setNotice] = useState('');
   const { address, isConnected } = useAccount();
