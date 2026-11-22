@@ -1,6 +1,6 @@
 # Solovled Support · GitHub Pages (draft)
 
-A standalone, editorial-style one-time crypto support page for Solovled. This app lives under `support-app/` so the existing Quant Reports homepage is unaffected. The intended published URL is `https://yelissa188.github.io/support/`.
+A standalone, editorial-style one-time crypto support page for Solovled. This app lives under `support-app/` so the temporary Solovled homepage stays independent. The intended published URL is `https://yelissa188.github.io/support/`. Earlier quant reports are archived in the `draft/quant-reports-2026-11-22` branch, not published from `master`.
 
 ## Included payment options
 
