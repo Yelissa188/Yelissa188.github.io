@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useChainId, useSendTransaction, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
-import { base, mainnet } from 'wagmi/chains';
+import { base } from 'wagmi/chains';
 import { parseAbi, parseEther, parseUnits } from 'viem';
 import { BASE_USDC, BTC_ADDRESS, CHOICES, CoinChoice, PAYEE } from './config';
 
@@ -74,7 +74,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
   // Suggestions are denominated in the selected token, NOT USD.
   const suggested = coin === 'USDC' ? ['5', '10', '25', '50'] : ['0.001', '0.003', '0.01', '0.025'];
   const [amount, setAmount] = useState(coin === 'USDC' ? '10' : '0.003');
-  const targetChain = coin === 'USDC' ? base : mainnet;
+  const targetChain = base;
   const [transactionHash, setTransactionHash] = useState<`0x${string}` | undefined>();
   const [notice, setNotice] = useState('');
   const { address, isConnected } = useAccount();
@@ -115,7 +115,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
         : await sendTransactionAsync({
             to: PAYEE,
             value: parsedAmount.result,
-            chainId: mainnet.id,
+            chainId: base.id,
           });
       setTransactionHash(hash);
     } catch (error) {
@@ -131,11 +131,11 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
       )}</div>
       <label className="custom-label" htmlFor="gift-amount">Or enter your own amount</label>
       <div className="input-wrap"><input id="gift-amount" inputMode="decimal" autoComplete="off" value={amount} onChange={e => { setAmount(e.target.value); setTransactionHash(undefined); setNotice(''); }} aria-describedby="gift-help" /><span>{coin}</span></div>
-      <p className="fine-print" id="gift-help">Amounts are in {coin}, not USD. {coin === 'ETH' ? 'Ethereum mainnet network fees may be significant. ' : 'Base ETH is required for the network fee. '}One-time only, no recurring charges.</p>
+      <p className="fine-print" id="gift-help">Amounts are in {coin}, not USD. Base ETH is required for the network fee. One-time only, no recurring charges.</p>
     </div>
     <div className="pay-column">
-      <div className="detail-row"><span>Network</span><strong>{coin === 'USDC' ? 'Base · Chain 8453' : 'Ethereum · Chain 1'}</strong></div>
-      <div className="detail-row"><span>Asset</span><strong>{coin === 'USDC' ? 'Native USDC (Circle)' : 'ETH (Ethereum Mainnet)'}</strong></div>
+      <div className="detail-row"><span>Network</span><strong>Base · Chain 8453</strong></div>
+      <div className="detail-row"><span>Asset</span><strong>{coin === 'USDC' ? 'Native USDC (Circle)' : 'ETH (Base)'}</strong></div>
       <div className="detail-row"><span>Recipient</span><strong>{PAYEE ? shorten(PAYEE) : 'Not configured yet'}</strong></div>
       {coin === 'USDC' && <div className="detail-row"><span>Token contract</span><strong title={BASE_USDC}>{shorten(BASE_USDC)}</strong></div>}
       {PAYEE ? <div className="full-address">{PAYEE}</div> : <div className="setup-note">Receiver address is invalid. Payments are disabled.</div>}
@@ -148,7 +148,7 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
       {notice && <p role="alert" className="error-text">{notice}</p>}
       {transactionHash && <div className="tx-result" role="status">
         {success ? 'Transaction confirmed on ' + targetChain.name + '.' : failure ? 'The on-chain transfer did not confirm successfully.' : 'Transaction submitted. Waiting for confirmation.'}
-        <a href={`${coin === 'USDC' ? 'https://basescan.org/tx/' : 'https://etherscan.io/tx/'}${transactionHash}`} target="_blank" rel="noreferrer noopener">View transaction in block explorer ↗</a>
+        <a href={`https://basescan.org/tx/${transactionHash}`} target="_blank" rel="noreferrer noopener">View transaction in block explorer ↗</a>
       </div>}
     </div>
   </div>;
