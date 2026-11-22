@@ -2,6 +2,15 @@
 
 A standalone, editorial-style one-time crypto support page for Solovled. This app lives under `support-app/` so the temporary Solovled homepage stays independent. The intended published URL is `https://yelissa188.github.io/support/`. Earlier quant reports are archived in the `draft/quant-reports-2026-11-22` branch, not published from `master`.
 
+## Visual direction (reference screenshot supplied 2026-11-22)
+
+- Clean, narrow personal-publication column, ivory rounded canvas on a quiet gray backdrop, serif brand and headings, sans-serif body, generous reading whitespace. **No decorative images**.
+- A real light/dark switch in the header.
+- One "Leave a little support" button opens a centered, minimalist payment-card dialog rather than putting a large payment panel in the article body.
+- The BTC QR image appears **only inside the payment dialog** when Bitcoin is selected.
+- Dialog supports Escape, outside click, focus containment/restoration and keeps transaction state mounted when closed; intentionally uses a wallet-compatible overlay rather than the browser top-layer native dialog, so RainbowKit's own connection popup can appear above it.
+- Footer: [Instagram `@solovled_188`](https://www.instagram.com/solovled_188/), email placeholder, and [Substack](https://solovled188.substack.com/). The personal public email was **not** explicitly selected, so it is not embedded into this public GitHub repository. Before publication, set a confirmed public address via `VITE_SOLOVLED_PUBLIC_EMAIL` during the build and verify that its mailto link works.
+
 ## Included payment options
 
 - **Bitcoin**: Bitcoin mainnet receive address, locally generated QR code, copy and save as PNG (no wallet connection needed).
@@ -16,7 +25,7 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 2. The **public** Reown/WalletConnect Project ID `de7e1dc23bcb790ba29acee520f261af` is configured in `src/config.ts`. Confirm that the eventual Pages origin (`https://yelissa188.github.io`) is allowed in your Reown project settings.
 3. No `.env.local` is required. The public Project ID and receiver live in `src/config.ts`. Use `VITE_REOWN_PROJECT_ID` only to override the public ID when testing. Vite VITE_ variables are browser-visible; **never place private keys or secrets in them**.
 4. Run `npm install`, `npm run dev`, and `npm run build`. Use Node 20+.
-5. For branch-based GitHub Pages publishing, copy the contents of `support-app/dist/` into the repository's top-level `support/` folder. Preserve existing root `index.html`, `data-analysis/`, and `strategy-portfolios/`.
+5. For branch-based GitHub Pages publishing, copy the contents of `support-app/dist/` into the repository's top-level `support/` folder. Preserve the current Solovled root `index.html`. Historical `data-analysis/` and `strategy-portfolios/` are archived in the quant draft branch; do not restore them to the public homepage.
 6. Publish only after desktop/mobile checks and explicit recipient verification. The QR string, token contract, amount, network and confirmed transaction must be tested with a small real amount.
 
 **Important:** The draft PR does **not** change GitHub Pages source settings or start any payments. The receiver and Reown Project ID are now configured. Wallet and payment flows still require browser/mobile and tiny real-transaction verification before production use.
@@ -51,6 +60,7 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 - [ ] Confirm amounts are denominated in token units, chain ID 8453, fixed receiver, and native USDC contract.
 - [ ] Test small USDC (Base) and ETH (Base) transfers separately. Inspect receipts and recipients on Basescan.
 - [ ] Test errors for insufficient funds, wallet rejection, wrong network, invalid amount, no wallet.
-- [ ] Confirm phone reading and taps, footer links and typography.
+- [ ] Confirm phone reading and taps, modal keyboard navigation, layered RainbowKit wallet popup and typography.
+- [ ] Select and configure explicitly public Solovled contact email; test mailto link.
 
 Status: **Draft / not deployed / not payment-verified**.
