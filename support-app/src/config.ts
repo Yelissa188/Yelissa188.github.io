@@ -8,7 +8,6 @@ export const BASE_CHAIN_ID = 8453 as const;
 
 // Validate EIP-55 checksum. Fail closed on corrupted address.
 export const PAYEE = isAddress(SUPPORT_RECEIVER) ? SUPPORT_RECEIVER : null;
-export const PROJECT_ID = (import.meta.env.VITE_REOWN_PROJECT_ID || 'de7e1dc23bcb790ba29acee520f261af').trim();
 export const CHOICES = [
   { key: 'BTC', label: 'Bitcoin', network: 'Bitcoin Mainnet', type: 'bitcoin' },
   { key: 'USDC', label: 'USDC', network: 'Base Mainnet', type: 'erc20' },
