@@ -11,14 +11,15 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 - Dialog supports Escape, outside click, focus containment/restoration and keeps transaction state mounted when closed; intentionally uses a wallet-compatible overlay rather than the browser top-layer native dialog, so RainbowKit's own connection popup can appear above it.
 - Footer: [Instagram `@solovled_188`](https://www.instagram.com/solovled_188/), confirmed public email [yelissa188@outlook.com](mailto:yelissa188@outlook.com), and [Substack](https://solovled188.substack.com/). The Outlook address was explicitly approved for public use and is now linked through `mailto:`.
 
-## Potential membership launch waitlist (not built yet)
+## Early access waitlist (published Tally form)
 
-A separate low-friction optional waitlist is under consideration, **not a paid subscription**:
-- Required: email.
-- Optional: brief note/message.
-- Required unticked checkbox: agree to receive a one-time launch notification about future membership/subscription options, with unsubscribe/contact information.
-- A form backend (recommended: Tally with stored submissions, notification to Outlook, export and optional Notion sync) must be configured and tested before a visible submit button is enabled. GitHub Pages by itself cannot store submissions.
-- Do not claim that email confirmations or launch emails are automated until independently tested. Avoid committing personal visitor messages/addresses to the public GitHub repository.
+- Public form: https://tally.so/r/J1ORbK (form ID `J1ORbK`, workspace `My workspace`).
+- Form published on 2026-11-22 with required email, optional note, explicitly required unticked launch-notification consent, CAPTCHA, and English thank-you page.
+- An editorial text link in `App.tsx` points to the actual live Tally form. The site itself remains in draft and does not accept form data directly.
+- Free Tally self-email notification is enabled. By default it is sent to the **Tally form creator's account email**, which has not been inspected or confirmed here. It is **not necessarily** the public footer contact `yelissa188@outlook.com`. Custom destination/subject/body were rejected as Pro-only.
+- Free plan may not apply the previously configured advanced visual styling to the published form.
+- Before announcing broadly: submit one authorized test entry, check Tally submissions and the notification email receipt, and inspect privacy/consent text. No paid subscription or automatic launch emails are created by this form.
+- Never store readers' addresses or messages in the public GitHub repository.
 
 ## Included payment options
 
