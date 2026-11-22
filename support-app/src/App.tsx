@@ -202,10 +202,8 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
     }
   }
 
-  // A public Solovled contact email must be explicitly selected before publication.
-  // Do not silently expose the personal Gmail address used in earlier testing.
-  const publicContactEmail = (import.meta.env.VITE_SOLOVLED_PUBLIC_EMAIL || '').trim();
-  const validContactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(publicContactEmail);
+  // Public contact email explicitly approved for display in the footer.
+  const publicContactEmail = 'yelissa188@outlook.com';
 
   return <div className={darkMode ? 'site-shell theme-dark' : 'site-shell'}>
     <div className="paper-page" ref={pageRef}>
@@ -240,9 +238,7 @@ export default function App({ walletEnabled }: { walletEnabled: boolean }) {
       <footer className="folio-footer">
         <nav className="social-links" aria-label="Follow and contact Solovled">
           <a href="https://www.instagram.com/solovled_188/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          {validContactEmail
-            ? <a href={`mailto:${publicContactEmail}`}>Email</a>
-            : <span className="unconfigured-link" title="Contact email will be added before launch">Email <span className="email-soon">(soon)</span></span>}
+          <a href={`mailto:${publicContactEmail}`} aria-label={`Email Solovled at ${publicContactEmail}`}>Email</a>
           <a href="https://solovled188.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>
         </nav>
         <div className="copyright">© 2026 Solovled. All rights reserved.</div>
