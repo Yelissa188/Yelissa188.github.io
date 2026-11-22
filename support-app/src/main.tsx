@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RainbowKitProvider, getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { base } from 'wagmi/chains';
+import { base, mainnet } from 'wagmi/chains';
 import '@rainbow-me/rainbowkit/styles.css';
 import './styles.css';
 import App from './App';
@@ -17,7 +17,7 @@ if (PROJECT_ID) {
   const config = getDefaultConfig({
     appName: 'Solovled Support',
     projectId: PROJECT_ID,
-    chains: [base],
+    chains: [base, mainnet],
     ssr: false,
   });
   root.render(
