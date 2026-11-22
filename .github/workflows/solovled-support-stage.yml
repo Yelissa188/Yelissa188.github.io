@@ -57,3 +57,5 @@ jobs:
             git commit -m "Rebuild Solovled Support static assets (staging)"
             git push origin HEAD:refs/heads/support-built-output
           fi
+
+# QR-only WalletConnect removal rebuild: 2026-11-22
