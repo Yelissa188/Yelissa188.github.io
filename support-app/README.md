@@ -1,21 +1,21 @@
-# Solovled Support · GitHub Pages (draft)
+# Solovled Support · GitHub Pages
 
-A standalone, editorial-style one-time crypto support page for Solovled. This app lives under `support-app/` so the temporary Solovled homepage stays independent. The intended published URL is `https://yelissa188.github.io/support/`. Earlier quant reports are archived in the `draft/quant-reports-2026-11-22` branch, not published from `master`.
+A standalone, editorial-style one-time crypto support page for Solovled. This app lives under `support-app/` so the minimal Solovled homepage stays independent. The published URL is `https://yelissa188.github.io/support/`. Earlier quant reports are archived in the `draft/quant-reports-2026-11-22` branch, not published from `master`.
 
 ## Visual direction (reference screenshot supplied 2026-11-22)
 
 - Clean, narrow personal-publication column, ivory rounded canvas on a quiet gray backdrop, serif brand and headings, sans-serif body, generous reading whitespace. **No decorative images**.
 - A real light/dark switch in the header.
-- One "Leave a little support" button opens a centered, minimalist payment-card dialog rather than putting a large payment panel in the article body.
-- The BTC QR image appears **only inside the payment dialog** when Bitcoin is selected.
-- Dialog supports Escape, outside click, focus containment/restoration and keeps transaction state mounted when closed; intentionally uses a wallet-compatible overlay rather than the browser top-layer native dialog, so RainbowKit's own connection popup can appear above it.
+- Main donation area is a generously sized, premium editorial card directly displayed beneath the short introduction. There is **no payment popup** or required extra click.
+- BTC is selected by default, with the full Bitcoin QR, address, and copy/download actions already visible. USDC and ETH remain selectable in the same prominent card, using the existing Base payment workflow.
+- Currency tabs, QR, recipient and payment buttons are accessible within the page. The theme toggle remains functional.
 - Footer: [Instagram `@solovled_188`](https://www.instagram.com/solovled_188/), confirmed public email [yelissa188@outlook.com](mailto:yelissa188@outlook.com), and [Substack](https://solovled188.substack.com/). The Outlook address was explicitly approved for public use and is now linked through `mailto:`.
 
 ## Early access waitlist (published Tally form)
 
 - Public form: https://tally.so/r/J1ORbK (form ID `J1ORbK`, workspace `My workspace`).
 - Form published on 2026-11-22 with required email, optional note, explicitly required unticked launch-notification consent, CAPTCHA, and English thank-you page.
-- An editorial text link in `App.tsx` points to the actual live Tally form. The site itself remains in draft and does not accept form data directly.
+- An editorial text link in `App.tsx` points to the actual live Tally form. The site itself does not accept form data directly.
 - Free Tally self-email notification is enabled. By default it is sent to the **Tally form creator's account email**, which has not been inspected or confirmed here. It is **not necessarily** the public footer contact `yelissa188@outlook.com`. Custom destination/subject/body were rejected as Pro-only.
 - Free plan may not apply the previously configured advanced visual styling to the published form.
 - Before announcing broadly: submit one authorized test entry, check Tally submissions and the notification email receipt, and inspect privacy/consent text. No paid subscription or automatic launch emails are created by this form.
@@ -29,16 +29,16 @@ A standalone, editorial-style one-time crypto support page for Solovled. This ap
 - Currency selector, suggested/freeform amounts, user wallet approval, Base transaction receipts and explorer links.
 - No smart-contract deployment, no backend, no admin keys, no automatic subscriptions, no ERC-20 allowances.
 
-## Setup (do not deploy a payable version until verified)
+## Deployment and verification
 
 1. The public EVM receiving address is configured in `src/config.ts`: `0x8b62bCC8D10107dbB1Ce9c7b537e212D345949e5` (EIP-55 checksum checked). Verify it is yours by comparing with your wallet before publishing. Never share a seed phrase or private key.
 2. The **public** Reown/WalletConnect Project ID `de7e1dc23bcb790ba29acee520f261af` is configured in `src/config.ts`. Confirm that the eventual Pages origin (`https://yelissa188.github.io`) is allowed in your Reown project settings.
 3. No `.env.local` is required. The public Project ID and receiver live in `src/config.ts`. Use `VITE_REOWN_PROJECT_ID` only to override the public ID when testing. Vite VITE_ variables are browser-visible; **never place private keys or secrets in them**.
 4. Run `npm install`, `npm run dev`, and `npm run build`. Use Node 20+.
 5. For branch-based GitHub Pages publishing, copy the contents of `support-app/dist/` into the repository's top-level `support/` folder. Preserve the current Solovled root `index.html`. Historical `data-analysis/` and `strategy-portfolios/` are archived in the quant draft branch; do not restore them to the public homepage.
-6. Publish only after desktop/mobile checks and explicit recipient verification. The QR string, token contract, amount, network and confirmed transaction must be tested with a small real amount.
+6. The public page has been published. The QR string, token contract, amounts, network, wallet connectivity, and real transaction receipts still require owner testing with a small amount.
 
-**Important:** The draft PR does **not** change GitHub Pages source settings or start any payments. The receiver and Reown Project ID are now configured. Wallet and payment flows still require browser/mobile and tiny real-transaction verification before production use.
+**Important:** The publicly visible page does not initiate payments without visitor action and wallet confirmation. The receiver and Reown Project ID are configured. Wallet and payment flows still require browser/mobile and tiny real-transaction verification.
 
 ## Configured chain and token
 
@@ -74,4 +74,4 @@ Wagmi write transactions: <https://wagmi.sh/react/guides/write-to-contract>.
 - [x] Explicitly approved public email configured in footer (`mailto:yelissa188@outlook.com`).
 - [ ] Verify Outlook link from the built page on desktop/mobile.
 
-Status: **Draft / not deployed / not payment-verified**.
+Status: **Public page deployed; live wallet/payment validation pending**.
