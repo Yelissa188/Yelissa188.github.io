@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import QRCode from 'qrcode';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useChainId, useSendTransaction, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
@@ -156,38 +156,98 @@ function EvMPayment({ coin }: { coin: 'USDC' | 'ETH' }) {
 
 export default function App({ walletEnabled }: { walletEnabled: boolean }) {
   const [choice, setChoice] = useState<CoinChoice>('BTC');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const selected = CHOICES.find(item => item.key === choice)!;
-  return <main className="page-shell">
-    <header className="top-nav">
-      <a className="wordmark" href="https://solovled188.substack.com/" target="_blank" rel="noreferrer">SOLOVLED<span className="wordmark-dot">.</span></a>
-      <span className="nav-subtitle">INDEPENDENT WORK · OPEN SUPPORT</span>
-    </header>
-    <div className="editorial-layout">
-      <section className="intro-panel">
-        <span className="eyebrow">A NOTE FROM SOLOVLED <span className="ornament">✦</span></span>
-        <h1>A little support keeps independent work moving<span className="period">.</span></h1>
-        <p className="lede">An independent space for writing, research, thoughtful conversations, and creative experiments.</p>
-        <div className="hairline" />
-        <p>If something you have read or explored here has stayed with you, this is a quiet way to support the work.</p>
-        <p>No membership. No subscription. Just a voluntary gesture, from one curious mind to another.</p>
-        <div className="signature">With gratitude,<br/><em>Solovled</em></div>
-        <div className="side-index"><span>01 / SUPPORT</span><span>02 / PAYMENT</span><span>03 / A NOTE</span></div>
-      </section>
-      <section className="support-panel">
-        <div className="panel-heading"><span className="small-label">01 — WAYS TO SUPPORT</span><h2>Choose what feels right.</h2><p>Choose a currency and send a one-time contribution. The amount is always yours to decide.</p></div>
-        <div className="currency-picker" role="group" aria-label="Choose currency">{CHOICES.map(item =>
-          <button type="button" key={item.key} aria-pressed={choice === item.key} onClick={() => setChoice(item.key)} className={choice === item.key ? 'currency selected' : 'currency'}>
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (modalOpen && !dialog.open) dialog.showModal();
+    else if (!modalOpen && dialog.open) dialog.close();
+  }, [modalOpen]);
+
+  // A public Solovled contact email must be explicitly selected before publication.
+  // Do not silently expose the personal Gmail address used in earlier testing.
+  const publicContactEmail = (import.meta.env.VITE_SOLOVLED_PUBLIC_EMAIL || '').trim();
+  const validContactEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(publicContactEmail);
+
+  return <div className={darkMode ? 'site-shell theme-dark' : 'site-shell'}>
+    <div className="paper-page">
+      <header className="folio-header">
+        <a className="folio-name" href="https://solovled188.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Solovled writing on Substack">Solovled</a>
+        <button className="theme-toggle" type="button" aria-label={darkMode ? 'Use light appearance' : 'Use dark appearance'} aria-pressed={darkMode} onClick={() => setDarkMode(value => !value)}>
+          <span aria-hidden="true">{darkMode ? '☼' : '☾'}</span>
+        </button>
+      </header>
+
+      <main className="folio-main">
+        <section className="personal-intro" aria-labelledby="intro-heading">
+          <h1 id="intro-heading">Writing, questions &amp; everything in between.</h1>
+          <p>Solovled is an independent space for <strong>writing, thoughtful conversations, research, and creative experiments.</strong></p>
+          <p>Some ideas begin as a question. Others become long conversations, notes, or pieces of writing. This is where they can take their own shape, without needing to fit into a single category.</p>
+          <p className="italic-note">A small corner of the internet for curious minds and unfinished thoughts.</p>
+        </section>
+
+        <section className="support-essay" aria-labelledby="support-heading">
+          <h2 id="support-heading">Support My Work</h2>
+          <p>If something you have read here has stayed with you, you can support the independent work behind it. It is entirely voluntary, and there is no subscription or commitment.</p>
+          <button className="support-trigger" type="button" onClick={() => setModalOpen(true)}>Leave a little support <span aria-hidden="true">↗</span></button>
+          <p className="support-fineprint">One-time crypto contribution · BTC, USDC or ETH</p>
+        </section>
+
+        <div className="author-signoff">
+          <span className="signoff-name">Solovled</span>
+          <span className="signoff-description">Writing, conversations &amp; digital experiments.</span>
+        </div>
+      </main>
+
+      <footer className="folio-footer">
+        <nav className="social-links" aria-label="Follow and contact Solovled">
+          <a href="https://www.instagram.com/solovled_188/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          {validContactEmail
+            ? <a href={`mailto:${publicContactEmail}`}>Email</a>
+            : <span className="unconfigured-link" title="Contact email will be added before launch">Email <span className="email-soon">(soon)</span></span>}
+          <a href="https://solovled188.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>
+        </nav>
+        <div className="copyright">© 2026 Solovled. All rights reserved.</div>
+      </footer>
+    </div>
+
+    <dialog
+      ref={dialogRef}
+      className="support-dialog"
+      aria-labelledby="payment-modal-title"
+      onClose={() => setModalOpen(false)}
+      onClick={event => { if (event.target === event.currentTarget) setModalOpen(false); }}
+    >
+      <div className="modal-card">
+        <div className="modal-topline">
+          <span className="small-label">SOLOVLED / ONE-TIME SUPPORT</span>
+          <button className="modal-dismiss" type="button" aria-label="Close payment options" onClick={() => setModalOpen(false)}>×</button>
+        </div>
+        <div className="modal-intro">
+          <h2 id="payment-modal-title">A little support.</h2>
+          <p>Choose what feels right. Your contribution is voluntary and always one-time.</p>
+        </div>
+        <div className="currency-picker" role="group" aria-label="Choose payment currency">
+          {CHOICES.map(item => <button type="button" key={item.key} aria-pressed={choice === item.key}
+            onClick={() => setChoice(item.key)}
+            className={choice === item.key ? 'currency selected' : 'currency'}>
             <strong>{item.key}</strong><span>{item.network}</span>
-          </button>
-        )}</div>
-        <div className="currency-description"><span className="small-label">02 — PAYMENT DETAILS</span><h3>{selected.label}</h3><span className="network-caption">{selected.network}</span></div>
+          </button>)}
+        </div>
+        <div className="currency-description">
+          <h3>{selected.label}</h3><span className="network-caption">{selected.network}</span>
+        </div>
         {choice === 'BTC'
           ? <BitcoinPanel />
-          : walletEnabled ? <EvMPayment key={choice} coin={choice} />
-          : <div className="setup-note wallet-pending"><h3>Wallet payments are being prepared.</h3><p>The EVM wallet connector needs the public Reown Project ID and the confirmed receiving address before it can be enabled. No payment can be initiated here yet.</p></div>}
-        <div className="closing-note"><span className="small-label">03 — BEFORE SENDING</span><p>This page is for one-time, voluntary support only. It does not sell access to private content or create a recurring subscription. Crypto transfers are irreversible: verify your network and the complete destination address in your own wallet.</p></div>
-      </section>
-    </div>
-    <footer><span>© SOLOVLED · INDEPENDENT THOUGHTS & DIGITAL EXPERIMENTS</span><a href="https://solovled188.substack.com/" target="_blank" rel="noreferrer">BACK TO WRITING ↗</a></footer>
-  </main>;
+          : walletEnabled
+            ? <EvMPayment key={choice} coin={choice} />
+            : <div className="setup-note wallet-pending"><h3>Wallet connection is being prepared.</h3><p>Digital wallet payments are temporarily unavailable.</p></div>}
+        <div className="closing-note"><p>Check the network, amount, and complete receiving address in your wallet before sending. Crypto transfers cannot be reversed. Support does not grant membership or paid-content access.</p></div>
+      </div>
+    </dialog>
+  </div>;
 }
